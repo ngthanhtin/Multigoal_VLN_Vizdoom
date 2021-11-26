@@ -6,7 +6,7 @@ Nguyen T.Tin, Ngoc Duy Nguyen, Che Peng Lim, Asim Bhatti, Kim Yong Guk<br />
 Sejong University, Seoul, Korea <br/>
 Deakin University, Australia
 
-![example](./docs/example.gif)
+![example](./docs/twogoal.gif)
 
 ### This repository contains:
 - Code for training an A3C-LSTM agent using Fourier Transform Attention in Single Goal or Multi Goals Env.
