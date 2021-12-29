@@ -2,56 +2,13 @@ import torch
 from torch import nn
 import torch.nn.functional as F
 import torch.fft
-from einops import rearrange
-import matplotlib.pyplot as plt
-from torchvision import transforms
-from PIL import Image
-import matplotlib.cm as cm
-import time
-
-def get_attention_map(img, conv_mat, is_fourier, get_mask=False):
-    att_mat = conv_mat.squeeze()
-    
-    # To account for residual connections, we add an identity matrix to the
-    # attention matrix and re-normalize the weights.
-    residual_att = torch.eye(att_mat.size(1))
-    aug_att_mat = att_mat + residual_att
-    # aug_att_mat = att_mat
-    aug_att_mat = aug_att_mat / aug_att_mat.sum(dim=-1).unsqueeze(-1)
-
-    # Recursively multiply the weight matrices
-    joint_attentions = torch.zeros(aug_att_mat.size())
-    joint_attentions[0] = aug_att_mat[0]
-
-    for n in range(1, aug_att_mat.size(0)):
-        joint_attentions[n] = torch.matmul(aug_att_mat[n], joint_attentions[n-1])
-
-    v = joint_attentions[0]
-    # if is_fourier:
-    #     v = joint_attentions[0]
-    # else:
-    #     v = joint_attentions[-1]
-    print(v.shape)
-    mask = v[0].reshape(4, 3).detach().numpy()
-    
-    if get_mask:
-        result = cv2.resize(mask / mask.max(), img.size)
-    else:    
-        mask = cv2.resize(mask / mask.max(), img.size)[..., np.newaxis]
-        # mask = cv2.resize(mask, img.size)[..., np.newaxis]
-        # mask = mask.astype("int8")
-        
-        result = (mask * img).astype("int8")
-    
-    return result
-
-def plot_attention_map(original_img, att_map, att_name):
-    fig, (ax1, ax2) = plt.subplots(ncols=2, figsize=(16, 16))
-    ax1.set_title('Original')
-    ax2.set_title(att_name)
-    _ = ax1.imshow(original_img)
-    _ = ax2.imshow(att_map)
-    plt.show()
+import numpy as np
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+from torch.autograd import Variable
+from language_model import tfidf_loading, WordEmbedding, SentenceEmbedding
+import cv2
 
 class FeedForward(nn.Module):
     def __init__(self, dim, mlp_dim, dropout = 0.):
@@ -142,63 +99,11 @@ class FNet(nn.Module):
         y_attention = y_attention.unsqueeze(2).unsqueeze(3)
         y_attention = y_attention.expand(1, self.hidden_dim, self.dim_x, self.dim_x)
         
-        start = time.time()
         z = x*y_attention
-        # print(time.time() - start)
         z = z.contiguous().view(z.size(0), 64, 12*12)
 
         z = self.ff(z) + z
             
-        z = z.view(z.size(0), -1)
-
-        return z
-
-class FNet2(nn.Module):
-    def __init__(self, dim_x, dim_y, hidden_dim, depth, mlp_dim, dropout = 0.):
-        """
-        dim_x: dim of image rep
-        hidden_dim: channel of image rep
-        dim_y: dim of words rep
-        depth: depth of fnet
-        mlp_dim: depth of mlps
-        """
-        super().__init__()
-        self.layers = nn.ModuleList([])
-        
-        for _ in range(1):
-            self.layers.append(nn.ModuleList([
-                FNetBlockImage(),
-                FNetBlockText(),
-                # PreNorm(12*12, FeedForward(12*12, 9, dropout = dropout))
-                # PreNorm(dim_x * dim_x, FeedForward(dim_x * dim_x, 3, dropout = dropout))
-            ]))
-
-        # self.ff = PreNorm(12*12, FeedForward(12*12, 9, dropout = dropout))
-        # Gated-Attention layers
-        self.attn_linear = nn.Linear(dim_y, hidden_dim)
-
-        self.dim_x = dim_x
-        self.dim_y = dim_y
-        self.hidden_dim = hidden_dim
-        self.dropout = dropout
-
-    def forward(self, x, y):
-        """
-        x: image vector
-        y: sentence vetor
-        """
-        for attn1, attn2 in self.layers:
-            x = attn1(x)
-            y = attn2(y)
-
-        y_attention = torch.sigmoid(self.attn_linear(y))
-        y_attention = y_attention.unsqueeze(2).unsqueeze(3)
-        y_attention = y_attention.expand(1, self.hidden_dim, self.dim_x, self.dim_x)
-        
-        start = time.time()
-        z = x*y_attention
-        # print(time.time() - start)
-        # z = z.contiguous().view(z.size(0), 64, 12*12)    
         z = z.view(z.size(0), -1)
 
         return z
@@ -231,24 +136,6 @@ class GatedAttention(nn.Module):
         z = z.view(z.size(0), -1)
 
         return z
-
-# x = torch.randn(1, 64, 12, 12)
-# y = torch.randn(1, 256)
-# m = FNet2(x.size()[1:], y.size(1), 64, 2, 0)
-# out = m(x, y)
-# print('-----')
-# print(out.shape)
-
-# exit()
-
-
-import numpy as np
-import torch
-import torch.nn as nn
-import torch.nn.functional as F
-from torch.autograd import Variable
-from language_model import tfidf_loading, WordEmbedding, SentenceEmbedding, SentenceSelfAttention
-import cv2
 
 
 def normalized_columns_initializer(weights, std=1.0):
@@ -383,12 +270,11 @@ class A3C_LSTM_GA(torch.nn.Module):
     
         x = att
 
-        # with open("abc.txt", "a+") as f:
-        #     f.write("{}\n".format(x.cpu().detach().clone().numpy()[0]))
         # A3C-LSTM
-        
-        x = self.prelu(self.linear(x))
-        # x = F.relu(self.linear(x))
+        if self.args.attention == 'fga':
+            x = self.prelu(self.linear(x))
+        else:
+            x = F.relu(self.linear(x))
         hx, cx = self.lstm(x, (hx, cx))
         time_emb = self.time_emb_layer(tx)
         x = torch.cat((hx, time_emb.view(-1, self.time_emb_dim)), 1)
