@@ -12,158 +12,7 @@ from models.models import A3C_LSTM_GA
 from ae.auto_encoder import Auto_Encoder_Model_PReLu224
 from utils.constants import *
 device='cpu'
-log_file = 'train_easy_multigoal_fourier_d1_ae.log'
-
-
-
-
-def save_weight_bias_gated(model, file_path):
-    for name, param in model.named_parameters():
-        if name == 'conv3.weight':
-            x_emb_weight = param
-        if name == 'conv3.bias':
-            x_emb_bias = param
-        if name == 's_emb.rnn.weight_ih_l0':
-            s_emb_ih_weight = param
-        if name == 's_emb.rnn.bias_ih_l0':
-            s_emb_ih_bias = param
-        if name == 's_emb.rnn.weight_hh_l0':
-            s_emb_hh_weight = param
-        if name == 's_emb.rnn.bias_hh_l0':
-            s_emb_hh_bias = param
-        if name == 'attention.attn_linear.weight': 
-            attn_linear_weight = param
-        if name == 'attention.attn_linear.bias':
-            attn_linear_bias = param
-
-    #save file
-    if os.path.exists(file_path):
-        #load file
-        # name_dict = {
-        #     'x_emb_weight': x_emb_weight.cpu().detach().numpy(),
-        #     'x_emb_bias':x_emb_bias.cpu().detach().numpy(),
-        #     's_emb_ih_weight':s_emb_ih_weight.cpu().detach().numpy(),
-        #     's_emb_ih_bias':s_emb_ih_bias.cpu().detach().numpy(),
-        #     's_emb_hh_weight':s_emb_hh_weight.cpu().detach().numpy(),
-        #     's_emb_hh_bias':s_emb_hh_bias.cpu().detach().numpy(),
-        #     'attn_linear_weight':attn_linear_weight.cpu().detach().numpy(),
-        #     'attn_linear_bias':attn_linear_bias.cpu().detach().numpy()
-        # }
-        
-        with open(file_path, 'rb') as handle:
-            unserialized_data = pickle.load(handle)
-            unserialized_data['x_emb_weight'].append(x_emb_weight.cpu().detach().numpy())
-            unserialized_data['x_emb_bias'].append(x_emb_bias.cpu().detach().numpy())
-            unserialized_data['s_emb_ih_weight'].append(s_emb_ih_weight.cpu().detach().numpy())
-            unserialized_data['s_emb_ih_bias'].append(s_emb_ih_bias.cpu().detach().numpy())
-            unserialized_data['s_emb_hh_weight'].append(s_emb_hh_weight.cpu().detach().numpy())
-            unserialized_data['s_emb_hh_bias'].append(s_emb_hh_bias.cpu().detach().numpy())
-            unserialized_data['attn_linear_weight'].append(attn_linear_weight.cpu().detach().numpy())
-            unserialized_data['attn_linear_bias'].append(attn_linear_bias.cpu().detach().numpy())
-
-        with open(file_path, 'wb') as handle:
-            pickle.dump(unserialized_data, handle, protocol=pickle.HIGHEST_PROTOCOL)
-    else:
-        name_dict = {
-            'x_emb_weight': [x_emb_weight.cpu().detach().numpy()],
-            'x_emb_bias':[x_emb_bias.cpu().detach().numpy()],
-            's_emb_ih_weight':[s_emb_ih_weight.cpu().detach().numpy()],
-            's_emb_ih_bias':[s_emb_ih_bias.cpu().detach().numpy()],
-            's_emb_hh_weight':[s_emb_hh_weight.cpu().detach().numpy()],
-            's_emb_hh_bias':[s_emb_hh_bias.cpu().detach().numpy()],
-            'attn_linear_weight':[attn_linear_weight.cpu().detach().numpy()],
-            'attn_linear_bias':[attn_linear_bias.cpu().detach().numpy()]
-        }
-
-        with open(file_path, 'wb') as handle:
-            pickle.dump(name_dict, handle, protocol=pickle.HIGHEST_PROTOCOL)
-
-
-def save_weight_bias(model, file_path):
-    for name, param in model.named_parameters():
-        if name == 'conv3.weight':
-            x_emb_weight = param
-        if name == 'conv3.bias':
-            x_emb_bias = param
-        if name == 's_emb.rnn.weight_ih_l0':
-            s_emb_ih_weight = param
-        if name == 's_emb.rnn.bias_ih_l0':
-            s_emb_ih_bias = param
-        if name == 's_emb.rnn.weight_hh_l0':
-            s_emb_hh_weight = param
-        if name == 's_emb.rnn.bias_hh_l0':
-            s_emb_hh_bias = param
-        # if name == 'attention.layers.0.0.norm.weight': 
-        #     x_emb_norm_fourier_weight = param
-        # if name == 'attention.layers.0.0.norm.bias':
-        #     x_emb_norm_fourier_bias = param
-        # if name == 'attention.layers.0.1.norm.weight':
-        #     s_emb_norm_fourier_weight = param
-        # if name == 'attention.layers.0.1.norm.bias':
-        #     s_emb_norm_fourier_bias = param
-        # if name == 'attention.ff.norm.weight':
-        #     gated_attention_norm_weight = param
-        # if name == 'attention.ff.norm.bias':
-        #     gated_attention_norm_bias = param
-
-    #save file
-    if os.path.exists(file_path):
-        #load file
-        # name_dict = {
-        #     'x_emb_weight': x_emb_weight.cpu().detach().numpy(),
-        #     'x_emb_bias':x_emb_bias.cpu().detach().numpy(),
-        #     's_emb_ih_weight':s_emb_ih_weight.cpu().detach().numpy(),
-        #     's_emb_ih_bias':s_emb_ih_bias.cpu().detach().numpy(),
-        #     's_emb_hh_weight':s_emb_hh_weight.cpu().detach().numpy(),
-        #     's_emb_hh_bias':s_emb_hh_bias.cpu().detach().numpy(),
-        #     'x_emb_norm_fourier_weight':x_emb_norm_fourier_weight.cpu().detach().numpy(),
-        #     'x_emb_norm_fourier_bias':x_emb_norm_fourier_bias.cpu().detach().numpy(),
-        #     's_emb_norm_fourier_weight':s_emb_norm_fourier_weight.cpu().detach().numpy(),
-        #     's_emb_norm_fourier_bias':s_emb_norm_fourier_bias.cpu().detach().numpy(),
-        #     'gated_attention_norm_weight':gated_attention_norm_weight.cpu().detach().numpy(),
-        #     'gated_attention_norm_bias':gated_attention_norm_bias.cpu().detach().numpy()
-        # }
-        
-        with open(file_path, 'rb') as handle:
-            unserialized_data = pickle.load(handle)
-            unserialized_data['x_emb_weights'].append(x_emb_weight.cpu().detach().numpy())
-            unserialized_data['x_emb_bias'].append(x_emb_bias.cpu().detach().numpy())
-            unserialized_data['s_emb_ih_weight'].append(s_emb_ih_weight.cpu().detach().numpy())
-            unserialized_data['s_emb_ih_bias'].append(s_emb_ih_bias.cpu().detach().numpy())
-            unserialized_data['s_emb_hh_weight'].append(s_emb_hh_weight.cpu().detach().numpy())
-            unserialized_data['s_emb_hh_bias'].append(s_emb_hh_bias.cpu().detach().numpy())
-            # unserialized_data['x_emb_norm_fourier_weight'].append(x_emb_norm_fourier_weight.cpu().detach().numpy())
-            # unserialized_data['x_emb_norm_fourier_bias'].append(x_emb_norm_fourier_bias.cpu().detach().numpy())
-            # unserialized_data['s_emb_norm_fourier_weight'].append(s_emb_norm_fourier_weight.cpu().detach().numpy())
-            # unserialized_data['s_emb_norm_fourier_bias'].append(s_emb_norm_fourier_bias.cpu().detach().numpy())
-            # unserialized_data['gated_attention_norm_weight'].append(gated_attention_norm_weight.cpu().detach().numpy())
-            # unserialized_data['gated_attention_norm_bias'].append(gated_attention_norm_bias.cpu().detach().numpy())
-
-        with open(file_path, 'wb') as handle:
-            pickle.dump(unserialized_data, handle, protocol=pickle.HIGHEST_PROTOCOL)
-    else:
-        name_dict = {
-            'x_emb_weight': [x_emb_weight.cpu().detach().numpy()],
-            'x_emb_bias':[x_emb_bias.cpu().detach().numpy()],
-            's_emb_ih_weight':[s_emb_ih_weight.cpu().detach().numpy()],
-            's_emb_ih_bias':[s_emb_ih_bias.cpu().detach().numpy()],
-            's_emb_hh_weight':[s_emb_hh_weight.cpu().detach().numpy()],
-            's_emb_hh_bias':[s_emb_hh_bias.cpu().detach().numpy()],
-            # 'x_emb_norm_fourier_weight':[x_emb_norm_fourier_weight.cpu().detach().numpy()],
-            # 'x_emb_norm_fourier_bias':[x_emb_norm_fourier_bias.cpu().detach().numpy()],
-            # 's_emb_norm_fourier_weight':[s_emb_norm_fourier_weight.cpu().detach().numpy()],
-            # 's_emb_norm_fourier_bias':[s_emb_norm_fourier_bias.cpu().detach().numpy()],
-            # 'gated_attention_norm_weight':[gated_attention_norm_weight.cpu().detach().numpy()],
-            # 'gated_attention_norm_bias':[gated_attention_norm_bias.cpu().detach().numpy()]
-        }
-        
-        with open(file_path, 'wb') as handle:
-            pickle.dump(name_dict, handle, protocol=pickle.HIGHEST_PROTOCOL)
-
-    # conv1 = nn.Conv2d(3, 1, 3)
-    # weight = conv1.weight.data.numpy()
-    # plt.imshow(weight[0, ...])
-
+log_file = 'train_easy_multigoal_convolve.log'
 
 
 def test(rank, args, shared_model):
@@ -222,12 +71,6 @@ def test(rank, args, shared_model):
     episode_count = 0
     image_index = 0
     #-----------------------------
-    #------SAVE WEIGHTS, BIAS------#
-    # root_path = './weight_bias/' + str(num_episode) + '_' + instruction
-    # file_name = 'weight_bias.pickle'
-    # if not os.path.isdir(root_path):
-    #     os.makedirs(root_path)
-
     while True:
         episode_length += 1
         if done:
@@ -236,10 +79,6 @@ def test(rank, args, shared_model):
 
             cx = torch.Tensor(torch.zeros(1, 256)).to(device)
             hx = torch.Tensor(torch.zeros(1, 256)).to(device)
-
-            # root_path = './weight_bias/' + str(num_episode) + '_' + instruction
-            # if not os.path.isdir(root_path):
-            #     os.makedirs(root_path)
                 
 
         else:
@@ -249,9 +88,7 @@ def test(rank, args, shared_model):
         tx = torch.Tensor(torch.from_numpy(np.array([episode_length])).float()).to(device) #.long()
 
         instruction_idx = instruction_idx.float().to(device)
-        # print(instruction)
-        # with open("word.txt", "a+") as f:
-        #     f.write("{}\n".format(instruction))
+        
         if args.auto_encoder:
             original_image = np.moveaxis(original_image, 0, 2)
             # cv2.imwrite('foo.png', cv2.cvtColor(original_image, cv2.COLOR_RGB2BGR))
@@ -270,28 +107,11 @@ def test(rank, args, shared_model):
             value, logit, (hx, cx) = model(
                     (torch.Tensor(image.unsqueeze(0)),
                     torch.Tensor(instruction_idx), (tx, hx, cx)))
-            
-            # if episode_length % 15 == 0: #20
-            #     save_weight_bias_gated(model, root_path + '/' + file_name)  
 
         prob = F.softmax(logit, dim=-1)
         action = prob.max(1)[1].data.numpy()
 
         (image, depth, _), reward, done, (reach_1, reach_2) = env.step(action[0])
-
-        #-------------BUGG-----------------------#
-        # save image
-        # tmp_image = np.moveaxis(image, 0, -1) # for rgb image
-        
-        # tmp_image = cv2.cvtColor(tmp_image, cv2.COLOR_BGR2RGB)
-        # image_index += 1
-        # MYDIR = '/home/tinvn/TIN/NLP_RL_Code/DeepRL-Grounding/data/multigoal_test_images/'+ str(episode_count)
-        # import os
-        # if not os.path.isdir(MYDIR):
-        #     os.makedirs(MYDIR)
-        #     print("created folder : ", MYDIR)
-        # cv2.imwrite(MYDIR + '/{}.png'.format(image_index), tmp_image)
-        #------------------------------------------------
 
         done = done or episode_length >= args.max_episode_length
         reward_sum += reward    
@@ -342,7 +162,7 @@ def test(rank, args, shared_model):
                         "Best Reward {}\n".format(best_reward)]))
                 if np.mean(rewards_list) >= best_reward and args.evaluate == 0:
                     torch.save(model.state_dict(),
-                               args.dump_location+"train_easy_multigoal_fourier_d1_ae")
+                               args.dump_location+"train_easy_multigoal_convolve")
 
                     best_reward = np.mean(rewards_list)
 

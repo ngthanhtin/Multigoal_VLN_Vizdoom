@@ -253,7 +253,8 @@ class A3C_LSTM_GA(torch.nn.Module):
 
             # Get the image representation
             N, Cin, H, W = x.shape
-            x = F.interpolate(x, (224, 224))
+            if self.args.attention == 'fga':
+                x = F.interpolate(x, (224, 224))
 
             x = self.conv1(x) 
             x = self.prelu(x)
