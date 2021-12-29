@@ -7,7 +7,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 from torch.autograd import Variable
-from language_model import tfidf_loading, WordEmbedding, SentenceEmbedding
+from language_model.language_model import tfidf_loading, WordEmbedding, SentenceEmbedding
 import cv2
 
 class FeedForward(nn.Module):
