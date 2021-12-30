@@ -526,9 +526,9 @@ if __name__ == "__main__":
 
     if args.difficulty == 'easy':
         # easy
-        graph1 = read_file(text_file="/home/tinvn/TIN/NLP_RL_Code/DeepRL-Grounding/saved/easy/train9_ae_prelu.log", defaut_gap=55/3600)# ae + san
-        graph2 = read_file(text_file="/home/tinvn/TIN/NLP_RL_Code/DeepRL-Grounding/saved/easy/based_easy/train_based_easy.log") # base
-        graph3 = read_file(text_file="/home/tinvn/TIN/NLP_RL_Code/DeepRL-Grounding/saved/easy/train_san_prelu_easy.log", defaut_gap=55/3600) # san
+        graph1 = read_file(text_file="/home/tinvn/TIN/NLP_RL_Code/AE_VLN_Vizdoom/saved/easy/train9_ae_prelu.log", defaut_gap=55/3600)# ae + san
+        graph2 = read_file(text_file="/home/tinvn/TIN/NLP_RL_Code/AE_VLN_Vizdoom/saved/easy/based_easy/train_based_easy.log") # base
+        graph3 = read_file(text_file="/home/tinvn/TIN/NLP_RL_Code/AE_VLN_Vizdoom/saved/easy/train_san_prelu_easy.log", defaut_gap=55/3600) # san
         graph4 = read_file(text_file="./saved/fourier_models/single_goal/easy/train_easy_forier_d1.log")
         graph5 = read_file(text_file="./saved/fourier_models/single_goal/easy/train_easy_ae_forier_d1.log")
         # plot

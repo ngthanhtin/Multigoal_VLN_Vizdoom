@@ -325,9 +325,10 @@ if __name__ == "__main__":
         # easy
         graph1 = read_file(text_file="./saved/fourier_models/two_goals/easy/train_easy_multigoal_fourier_d1.log")
         graph2 = read_file(text_file="./saved/fourier_models/two_goals/easy/train_easy_multigoal_fourier_d1_gated.log")
+        graph3 = read_file(text_file="./train_easy_multigoal_convolve.log")
         # plot
-        # plot_graph_2(graphs=[graph1, graph2], labels=["FGA easy (Multi Goals)", "GA easy (Multi Goals)"], level='easy', shown_type=args.type)
-        plot_reaches(text_file="./saved/fourier_models/two_goals/easy/train_easy_multigoal_fourier_d1.log")
+        plot_graph_2(graphs=[graph1, graph2, graph3], labels=["FGA easy (2 Goals)", "GA easy (2 Goals)", 'Convolve easy (2 Goals)'], level='easy', shown_type=args.type)
+        # plot_reaches(text_file="./saved/fourier_models/two_goals/easy/train_easy_multigoal_fourier_d1.log")
         
     elif args.difficulty == 'medium':
         # medium

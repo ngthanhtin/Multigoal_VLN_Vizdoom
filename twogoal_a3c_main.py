@@ -83,19 +83,7 @@ parser.add_argument('--dump-location', type=str, default="./saved/",
 # Attention arguments
 parser.add_argument('-att', '--attention', type=str, default="fga",
                     help="""Type of attention,
-                    "fga" or "ga" (default: fga)""")
-parser.add_argument('--glimpse', type=int, default=2,
-                    help='glimpse in Bilinear Attention Networks')
-
-parser.add_argument('--num_stacks', type=int, default=2,
-                    help='Number of Stacks in Stacked Attention Networks')
-parser.add_argument('--drop_ratio', type=float, default=0.5,
-                    help='Dropout ratio in Stacked Attention Networks')
-parser.add_argument('--num_text_candidates', type=int, default=2,
-                    help='Number of Text Candidates in Stacked Attention Networks')
-
-parser.add_argument('--num_hidden', type=int, default=256,
-                    help='Number of Hidden size in Both Attention Networks')
+                    "fga" or "ga" or "convolve" (default: fga)""")
 
 #AE arguments
 parser.add_argument('--auto-encoder', action='store_true',
