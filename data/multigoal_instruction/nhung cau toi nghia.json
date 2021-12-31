@@ -1,0 +1,239 @@
+[
+    {
+        "instruction": "Go to the short red object and Go to the red short object",
+        "targets": [
+            [
+                "ShortRedTorch",
+                "ShortRedColumn"
+            ],
+            [
+                "ShortRedTorch",
+                "ShortRedColumn"
+            ]
+        ],
+        "description": [
+            "short red object",
+            "red short object"
+        ],
+        "connection_type": "and"
+    },
+    {
+        "instruction": "Go to the short red object before Go to the red short object",
+        "targets": [
+            [
+                "ShortRedTorch",
+                "ShortRedColumn"
+            ],
+            [
+                "ShortRedTorch",
+                "ShortRedColumn"
+            ]
+        ],
+        "description": [
+            "short red object",
+            "red short object"
+        ],
+        "connection_type": "before"
+    },
+    {
+        "instruction": "Go to the short red object after Go to the red short object",
+        "targets": [
+            [
+                "ShortRedTorch",
+                "ShortRedColumn"
+            ],
+            [
+                "ShortRedTorch",
+                "ShortRedColumn"
+            ]
+        ],
+        "description": [
+            "short red object",
+            "red short object"
+        ],
+        "connection_type": "after"
+    },
+    {
+        "instruction": "Go to the short red object and Go to the red torch",
+        "targets": [
+            [
+                "ShortRedTorch",
+                "ShortRedColumn"
+            ],
+            [
+                "RedTorch",
+                "ShortRedTorch"
+            ]
+        ],
+        "description": [
+            "short red object",
+            "red torch"
+        ],
+        "connection_type": "and"
+    },
+    {
+        "instruction": "Go to the short red object before Go to the red torch",
+        "targets": [
+            [
+                "ShortRedTorch",
+                "ShortRedColumn"
+            ],
+            [
+                "RedTorch",
+                "ShortRedTorch"
+            ]
+        ],
+        "description": [
+            "short red object",
+            "red torch"
+        ],
+        "connection_type": "before"
+    },
+    {
+        "instruction": "Go to the short red object after Go to the red torch",
+        "targets": [
+            [
+                "ShortRedTorch",
+                "ShortRedColumn"
+            ],
+            [
+                "RedTorch",
+                "ShortRedTorch"
+            ]
+        ],
+        "description": [
+            "short red object",
+            "red torch"
+        ],
+        "connection_type": "after"
+    },
+    {
+        "instruction": "Go to the torch after Go to the red tall torch",
+        "targets": [
+            [
+                "BlueTorch",
+                "GreenTorch",
+                "RedTorch",
+                "ShortRedTorch",
+                "ShortGreenTorch",
+                "ShortBlueTorch"
+            ],
+            [
+                "RedTorch"
+            ]
+        ],
+        "description": [
+            "torch",
+            "red tall torch"
+        ],
+        "connection_type": "after"
+    }
+    {
+        "instruction": "Go to the short red object and Go to the short torch",
+        "targets": [
+            [
+                "ShortRedTorch",
+                "ShortRedColumn"
+            ],
+            [
+                "ShortRedTorch",
+                "ShortGreenTorch",
+                "ShortBlueTorch"
+            ]
+        ],
+        "description": [
+            "short red object",
+            "short torch"
+        ],
+        "connection_type": "and"
+    },
+    {
+        "instruction": "Go to the short red object before Go to the short torch",
+        "targets": [
+            [
+                "ShortRedTorch",
+                "ShortRedColumn"
+            ],
+            [
+                "ShortRedTorch",
+                "ShortGreenTorch",
+                "ShortBlueTorch"
+            ]
+        ],
+        "description": [
+            "short red object",
+            "short torch"
+        ],
+        "connection_type": "before"
+    },
+    {
+        "instruction": "Go to the short red object after Go to the short torch",
+        "targets": [
+            [
+                "ShortRedTorch",
+                "ShortRedColumn"
+            ],
+            [
+                "ShortRedTorch",
+                "ShortGreenTorch",
+                "ShortBlueTorch"
+            ]
+        ],
+        "description": [
+            "short red object",
+            "short torch"
+        ],
+        "connection_type": "after"
+    },
+    {
+        "instruction": "Go to the short red object and Go to the short red pillar",
+        "targets": [
+            [
+                "ShortRedTorch",
+                "ShortRedColumn"
+            ],
+            [
+                "ShortRedColumn"
+            ]
+        ],
+        "description": [
+            "short red object",
+            "short red pillar"
+        ],
+        "connection_type": "and"
+    },
+    {
+        "instruction": "Go to the short red object before Go to the short red pillar",
+        "targets": [
+            [
+                "ShortRedTorch",
+                "ShortRedColumn"
+            ],
+            [
+                "ShortRedColumn"
+            ]
+        ],
+        "description": [
+            "short red object",
+            "short red pillar"
+        ],
+        "connection_type": "before"
+    },
+    {
+        "instruction": "Go to the short red object after Go to the short red pillar",
+        "targets": [
+            [
+                "ShortRedTorch",
+                "ShortRedColumn"
+            ],
+            [
+                "ShortRedColumn"
+            ]
+        ],
+        "description": [
+            "short red object",
+            "short red pillar"
+        ],
+        "connection_type": "after"
+    },
+]

@@ -1,0 +1,1542 @@
+[
+    {
+        "instruction": "Go to the armor and Go to the pillar and Go to the skullkey",
+        "targets": [
+            [
+                "GreenArmor",
+                "BlueArmor"
+            ],
+            [
+                "TallRedColumn",
+                "TallGreenColumn",
+                "ShortGreenColumn",
+                "ShortRedColumn"
+            ],
+            [
+                "RedSkull",
+                "BlueSkull",
+                "YellowSkull"
+            ]
+        ],
+        "description": [
+            "armor",
+            "pillar",
+            "skullkey"
+        ],
+        "connection_type": [
+            "and",
+            "and"
+        ]
+    },
+    {
+        "instruction": "Go to the armor before Go to the pillar and Go to the skullkey",
+        "targets": [
+            [
+                "GreenArmor",
+                "BlueArmor"
+            ],
+            [
+                "TallRedColumn",
+                "TallGreenColumn",
+                "ShortGreenColumn",
+                "ShortRedColumn"
+            ],
+            [
+                "RedSkull",
+                "BlueSkull",
+                "YellowSkull"
+            ]
+        ],
+        "description": [
+            "armor",
+            "pillar",
+            "skullkey"
+        ],
+        "connection_type": [
+            "before",
+            "and"
+        ]
+    },
+    {
+        "instruction": "Go to the armor after Go to the pillar and Go to the skullkey",
+        "targets": [
+            [
+                "GreenArmor",
+                "BlueArmor"
+            ],
+            [
+                "TallRedColumn",
+                "TallGreenColumn",
+                "ShortGreenColumn",
+                "ShortRedColumn"
+            ],
+            [
+                "RedSkull",
+                "BlueSkull",
+                "YellowSkull"
+            ]
+        ],
+        "description": [
+            "armor",
+            "pillar",
+            "skullkey"
+        ],
+        "connection_type": [
+            "after",
+            "and"
+        ]
+    },
+    {
+        "instruction": "Go to the armor and Go to the pillar after Go to the skullkey",
+        "targets": [
+            [
+                "GreenArmor",
+                "BlueArmor"
+            ],
+            [
+                "TallRedColumn",
+                "TallGreenColumn",
+                "ShortGreenColumn",
+                "ShortRedColumn"
+            ],
+            [
+                "RedSkull",
+                "BlueSkull",
+                "YellowSkull"
+            ]
+        ],
+        "description": [
+            "armor",
+            "pillar",
+            "skullkey"
+        ],
+        "connection_type": [
+            "and",
+            "after"
+        ]
+    },
+    {
+        "instruction": "Go to the armor and Go to the pillar before Go to the skullkey",
+        "targets": [
+            [
+                "GreenArmor",
+                "BlueArmor"
+            ],
+            [
+                "TallRedColumn",
+                "TallGreenColumn",
+                "ShortGreenColumn",
+                "ShortRedColumn"
+            ],
+            [
+                "RedSkull",
+                "BlueSkull",
+                "YellowSkull"
+            ]
+        ],
+        "description": [
+            "armor",
+            "pillar",
+            "skullkey"
+        ],
+        "connection_type": [
+            "and",
+            "before"
+        ]
+    },
+    {
+        "instruction": "Go to the armor and Go to the pillar and Go to the keycard",
+        "targets": [
+            [
+                "GreenArmor",
+                "BlueArmor"
+            ],
+            [
+                "TallRedColumn",
+                "TallGreenColumn",
+                "ShortGreenColumn",
+                "ShortRedColumn"
+            ],
+            [
+                "YellowCard",
+                "RedCard",
+                "BlueCard"
+            ]
+        ],
+        "description": [
+            "armor",
+            "pillar",
+            "keycard"
+        ],
+        "connection_type": [
+            "and",
+            "and"
+        ]
+    },
+    {
+        "instruction": "Go to the armor before Go to the pillar and Go to the keycard",
+        "targets": [
+            [
+                "GreenArmor",
+                "BlueArmor"
+            ],
+            [
+                "TallRedColumn",
+                "TallGreenColumn",
+                "ShortGreenColumn",
+                "ShortRedColumn"
+            ],
+            [
+                "YellowCard",
+                "RedCard",
+                "BlueCard"
+            ]
+        ],
+        "description": [
+            "armor",
+            "pillar",
+            "keycard"
+        ],
+        "connection_type": [
+            "before",
+            "and"
+        ]
+    },
+    {
+        "instruction": "Go to the armor after Go to the pillar and Go to the keycard",
+        "targets": [
+            [
+                "GreenArmor",
+                "BlueArmor"
+            ],
+            [
+                "TallRedColumn",
+                "TallGreenColumn",
+                "ShortGreenColumn",
+                "ShortRedColumn"
+            ],
+            [
+                "YellowCard",
+                "RedCard",
+                "BlueCard"
+            ]
+        ],
+        "description": [
+            "armor",
+            "pillar",
+            "keycard"
+        ],
+        "connection_type": [
+            "after",
+            "and"
+        ]
+    },
+    {
+        "instruction": "Go to the armor and Go to the pillar after Go to the keycard",
+        "targets": [
+            [
+                "GreenArmor",
+                "BlueArmor"
+            ],
+            [
+                "TallRedColumn",
+                "TallGreenColumn",
+                "ShortGreenColumn",
+                "ShortRedColumn"
+            ],
+            [
+                "YellowCard",
+                "RedCard",
+                "BlueCard"
+            ]
+        ],
+        "description": [
+            "armor",
+            "pillar",
+            "keycard"
+        ],
+        "connection_type": [
+            "and",
+            "after"
+        ]
+    },
+    {
+        "instruction": "Go to the armor and Go to the pillar before Go to the keycard",
+        "targets": [
+            [
+                "GreenArmor",
+                "BlueArmor"
+            ],
+            [
+                "TallRedColumn",
+                "TallGreenColumn",
+                "ShortGreenColumn",
+                "ShortRedColumn"
+            ],
+            [
+                "YellowCard",
+                "RedCard",
+                "BlueCard"
+            ]
+        ],
+        "description": [
+            "armor",
+            "pillar",
+            "keycard"
+        ],
+        "connection_type": [
+            "and",
+            "before"
+        ]
+    },
+    {
+        "instruction": "Go to the armor and Go to the pillar and Go to the torch",
+        "targets": [
+            [
+                "GreenArmor",
+                "BlueArmor"
+            ],
+            [
+                "TallRedColumn",
+                "TallGreenColumn",
+                "ShortGreenColumn",
+                "ShortRedColumn"
+            ],
+            [
+                "BlueTorch",
+                "GreenTorch",
+                "RedTorch",
+                "ShortRedTorch",
+                "ShortGreenTorch",
+                "ShortBlueTorch"
+            ]
+        ],
+        "description": [
+            "armor",
+            "pillar",
+            "torch"
+        ],
+        "connection_type": [
+            "and",
+            "and"
+        ]
+    },
+    {
+        "instruction": "Go to the armor before Go to the pillar and Go to the torch",
+        "targets": [
+            [
+                "GreenArmor",
+                "BlueArmor"
+            ],
+            [
+                "TallRedColumn",
+                "TallGreenColumn",
+                "ShortGreenColumn",
+                "ShortRedColumn"
+            ],
+            [
+                "BlueTorch",
+                "GreenTorch",
+                "RedTorch",
+                "ShortRedTorch",
+                "ShortGreenTorch",
+                "ShortBlueTorch"
+            ]
+        ],
+        "description": [
+            "armor",
+            "pillar",
+            "torch"
+        ],
+        "connection_type": [
+            "before",
+            "and"
+        ]
+    },
+    {
+        "instruction": "Go to the armor after Go to the pillar and Go to the torch",
+        "targets": [
+            [
+                "GreenArmor",
+                "BlueArmor"
+            ],
+            [
+                "TallRedColumn",
+                "TallGreenColumn",
+                "ShortGreenColumn",
+                "ShortRedColumn"
+            ],
+            [
+                "BlueTorch",
+                "GreenTorch",
+                "RedTorch",
+                "ShortRedTorch",
+                "ShortGreenTorch",
+                "ShortBlueTorch"
+            ]
+        ],
+        "description": [
+            "armor",
+            "pillar",
+            "torch"
+        ],
+        "connection_type": [
+            "after",
+            "and"
+        ]
+    },
+    {
+        "instruction": "Go to the armor and Go to the pillar after Go to the torch",
+        "targets": [
+            [
+                "GreenArmor",
+                "BlueArmor"
+            ],
+            [
+                "TallRedColumn",
+                "TallGreenColumn",
+                "ShortGreenColumn",
+                "ShortRedColumn"
+            ],
+            [
+                "BlueTorch",
+                "GreenTorch",
+                "RedTorch",
+                "ShortRedTorch",
+                "ShortGreenTorch",
+                "ShortBlueTorch"
+            ]
+        ],
+        "description": [
+            "armor",
+            "pillar",
+            "torch"
+        ],
+        "connection_type": [
+            "and",
+            "after"
+        ]
+    },
+    {
+        "instruction": "Go to the armor and Go to the pillar before Go to the torch",
+        "targets": [
+            [
+                "GreenArmor",
+                "BlueArmor"
+            ],
+            [
+                "TallRedColumn",
+                "TallGreenColumn",
+                "ShortGreenColumn",
+                "ShortRedColumn"
+            ],
+            [
+                "BlueTorch",
+                "GreenTorch",
+                "RedTorch",
+                "ShortRedTorch",
+                "ShortGreenTorch",
+                "ShortBlueTorch"
+            ]
+        ],
+        "description": [
+            "armor",
+            "pillar",
+            "torch"
+        ],
+        "connection_type": [
+            "and",
+            "before"
+        ]
+    },
+    {
+        "instruction": "Go to the armor and Go to the skullkey and Go to the keycard",
+        "targets": [
+            [
+                "GreenArmor",
+                "BlueArmor"
+            ],
+            [
+                "RedSkull",
+                "BlueSkull",
+                "YellowSkull"
+            ],
+            [
+                "YellowCard",
+                "RedCard",
+                "BlueCard"
+            ]
+        ],
+        "description": [
+            "armor",
+            "skullkey",
+            "keycard"
+        ],
+        "connection_type": [
+            "and",
+            "and"
+        ]
+    },
+    {
+        "instruction": "Go to the armor before Go to the skullkey and Go to the keycard",
+        "targets": [
+            [
+                "GreenArmor",
+                "BlueArmor"
+            ],
+            [
+                "RedSkull",
+                "BlueSkull",
+                "YellowSkull"
+            ],
+            [
+                "YellowCard",
+                "RedCard",
+                "BlueCard"
+            ]
+        ],
+        "description": [
+            "armor",
+            "skullkey",
+            "keycard"
+        ],
+        "connection_type": [
+            "before",
+            "and"
+        ]
+    },
+    {
+        "instruction": "Go to the armor after Go to the skullkey and Go to the keycard",
+        "targets": [
+            [
+                "GreenArmor",
+                "BlueArmor"
+            ],
+            [
+                "RedSkull",
+                "BlueSkull",
+                "YellowSkull"
+            ],
+            [
+                "YellowCard",
+                "RedCard",
+                "BlueCard"
+            ]
+        ],
+        "description": [
+            "armor",
+            "skullkey",
+            "keycard"
+        ],
+        "connection_type": [
+            "after",
+            "and"
+        ]
+    },
+    {
+        "instruction": "Go to the armor and Go to the skullkey after Go to the keycard",
+        "targets": [
+            [
+                "GreenArmor",
+                "BlueArmor"
+            ],
+            [
+                "RedSkull",
+                "BlueSkull",
+                "YellowSkull"
+            ],
+            [
+                "YellowCard",
+                "RedCard",
+                "BlueCard"
+            ]
+        ],
+        "description": [
+            "armor",
+            "skullkey",
+            "keycard"
+        ],
+        "connection_type": [
+            "and",
+            "after"
+        ]
+    },
+    {
+        "instruction": "Go to the armor and Go to the skullkey before Go to the keycard",
+        "targets": [
+            [
+                "GreenArmor",
+                "BlueArmor"
+            ],
+            [
+                "RedSkull",
+                "BlueSkull",
+                "YellowSkull"
+            ],
+            [
+                "YellowCard",
+                "RedCard",
+                "BlueCard"
+            ]
+        ],
+        "description": [
+            "armor",
+            "skullkey",
+            "keycard"
+        ],
+        "connection_type": [
+            "and",
+            "before"
+        ]
+    },
+    {
+        "instruction": "Go to the armor and Go to the skullkey and Go to the torch",
+        "targets": [
+            [
+                "GreenArmor",
+                "BlueArmor"
+            ],
+            [
+                "RedSkull",
+                "BlueSkull",
+                "YellowSkull"
+            ],
+            [
+                "BlueTorch",
+                "GreenTorch",
+                "RedTorch",
+                "ShortRedTorch",
+                "ShortGreenTorch",
+                "ShortBlueTorch"
+            ]
+        ],
+        "description": [
+            "armor",
+            "skullkey",
+            "torch"
+        ],
+        "connection_type": [
+            "and",
+            "and"
+        ]
+    },
+    {
+        "instruction": "Go to the armor before Go to the skullkey and Go to the torch",
+        "targets": [
+            [
+                "GreenArmor",
+                "BlueArmor"
+            ],
+            [
+                "RedSkull",
+                "BlueSkull",
+                "YellowSkull"
+            ],
+            [
+                "BlueTorch",
+                "GreenTorch",
+                "RedTorch",
+                "ShortRedTorch",
+                "ShortGreenTorch",
+                "ShortBlueTorch"
+            ]
+        ],
+        "description": [
+            "armor",
+            "skullkey",
+            "torch"
+        ],
+        "connection_type": [
+            "before",
+            "and"
+        ]
+    },
+    {
+        "instruction": "Go to the armor after Go to the skullkey and Go to the torch",
+        "targets": [
+            [
+                "GreenArmor",
+                "BlueArmor"
+            ],
+            [
+                "RedSkull",
+                "BlueSkull",
+                "YellowSkull"
+            ],
+            [
+                "BlueTorch",
+                "GreenTorch",
+                "RedTorch",
+                "ShortRedTorch",
+                "ShortGreenTorch",
+                "ShortBlueTorch"
+            ]
+        ],
+        "description": [
+            "armor",
+            "skullkey",
+            "torch"
+        ],
+        "connection_type": [
+            "after",
+            "and"
+        ]
+    },
+    {
+        "instruction": "Go to the armor and Go to the skullkey after Go to the torch",
+        "targets": [
+            [
+                "GreenArmor",
+                "BlueArmor"
+            ],
+            [
+                "RedSkull",
+                "BlueSkull",
+                "YellowSkull"
+            ],
+            [
+                "BlueTorch",
+                "GreenTorch",
+                "RedTorch",
+                "ShortRedTorch",
+                "ShortGreenTorch",
+                "ShortBlueTorch"
+            ]
+        ],
+        "description": [
+            "armor",
+            "skullkey",
+            "torch"
+        ],
+        "connection_type": [
+            "and",
+            "after"
+        ]
+    },
+    {
+        "instruction": "Go to the armor and Go to the skullkey before Go to the torch",
+        "targets": [
+            [
+                "GreenArmor",
+                "BlueArmor"
+            ],
+            [
+                "RedSkull",
+                "BlueSkull",
+                "YellowSkull"
+            ],
+            [
+                "BlueTorch",
+                "GreenTorch",
+                "RedTorch",
+                "ShortRedTorch",
+                "ShortGreenTorch",
+                "ShortBlueTorch"
+            ]
+        ],
+        "description": [
+            "armor",
+            "skullkey",
+            "torch"
+        ],
+        "connection_type": [
+            "and",
+            "before"
+        ]
+    },
+    {
+        "instruction": "Go to the armor and Go to the keycard and Go to the torch",
+        "targets": [
+            [
+                "GreenArmor",
+                "BlueArmor"
+            ],
+            [
+                "YellowCard",
+                "RedCard",
+                "BlueCard"
+            ],
+            [
+                "BlueTorch",
+                "GreenTorch",
+                "RedTorch",
+                "ShortRedTorch",
+                "ShortGreenTorch",
+                "ShortBlueTorch"
+            ]
+        ],
+        "description": [
+            "armor",
+            "keycard",
+            "torch"
+        ],
+        "connection_type": [
+            "and",
+            "and"
+        ]
+    },
+    {
+        "instruction": "Go to the armor before Go to the keycard and Go to the torch",
+        "targets": [
+            [
+                "GreenArmor",
+                "BlueArmor"
+            ],
+            [
+                "YellowCard",
+                "RedCard",
+                "BlueCard"
+            ],
+            [
+                "BlueTorch",
+                "GreenTorch",
+                "RedTorch",
+                "ShortRedTorch",
+                "ShortGreenTorch",
+                "ShortBlueTorch"
+            ]
+        ],
+        "description": [
+            "armor",
+            "keycard",
+            "torch"
+        ],
+        "connection_type": [
+            "before",
+            "and"
+        ]
+    },
+    {
+        "instruction": "Go to the armor after Go to the keycard and Go to the torch",
+        "targets": [
+            [
+                "GreenArmor",
+                "BlueArmor"
+            ],
+            [
+                "YellowCard",
+                "RedCard",
+                "BlueCard"
+            ],
+            [
+                "BlueTorch",
+                "GreenTorch",
+                "RedTorch",
+                "ShortRedTorch",
+                "ShortGreenTorch",
+                "ShortBlueTorch"
+            ]
+        ],
+        "description": [
+            "armor",
+            "keycard",
+            "torch"
+        ],
+        "connection_type": [
+            "after",
+            "and"
+        ]
+    },
+    {
+        "instruction": "Go to the armor and Go to the keycard after Go to the torch",
+        "targets": [
+            [
+                "GreenArmor",
+                "BlueArmor"
+            ],
+            [
+                "YellowCard",
+                "RedCard",
+                "BlueCard"
+            ],
+            [
+                "BlueTorch",
+                "GreenTorch",
+                "RedTorch",
+                "ShortRedTorch",
+                "ShortGreenTorch",
+                "ShortBlueTorch"
+            ]
+        ],
+        "description": [
+            "armor",
+            "keycard",
+            "torch"
+        ],
+        "connection_type": [
+            "and",
+            "after"
+        ]
+    },
+    {
+        "instruction": "Go to the armor and Go to the keycard before Go to the torch",
+        "targets": [
+            [
+                "GreenArmor",
+                "BlueArmor"
+            ],
+            [
+                "YellowCard",
+                "RedCard",
+                "BlueCard"
+            ],
+            [
+                "BlueTorch",
+                "GreenTorch",
+                "RedTorch",
+                "ShortRedTorch",
+                "ShortGreenTorch",
+                "ShortBlueTorch"
+            ]
+        ],
+        "description": [
+            "armor",
+            "keycard",
+            "torch"
+        ],
+        "connection_type": [
+            "and",
+            "before"
+        ]
+    },
+    {
+        "instruction": "Go to the pillar and Go to the skullkey and Go to the keycard",
+        "targets": [
+            [
+                "TallRedColumn",
+                "TallGreenColumn",
+                "ShortGreenColumn",
+                "ShortRedColumn"
+            ],
+            [
+                "RedSkull",
+                "BlueSkull",
+                "YellowSkull"
+            ],
+            [
+                "YellowCard",
+                "RedCard",
+                "BlueCard"
+            ]
+        ],
+        "description": [
+            "pillar",
+            "skullkey",
+            "keycard"
+        ],
+        "connection_type": [
+            "and",
+            "and"
+        ]
+    },
+    {
+        "instruction": "Go to the pillar before Go to the skullkey and Go to the keycard",
+        "targets": [
+            [
+                "TallRedColumn",
+                "TallGreenColumn",
+                "ShortGreenColumn",
+                "ShortRedColumn"
+            ],
+            [
+                "RedSkull",
+                "BlueSkull",
+                "YellowSkull"
+            ],
+            [
+                "YellowCard",
+                "RedCard",
+                "BlueCard"
+            ]
+        ],
+        "description": [
+            "pillar",
+            "skullkey",
+            "keycard"
+        ],
+        "connection_type": [
+            "before",
+            "and"
+        ]
+    },
+    {
+        "instruction": "Go to the pillar after Go to the skullkey and Go to the keycard",
+        "targets": [
+            [
+                "TallRedColumn",
+                "TallGreenColumn",
+                "ShortGreenColumn",
+                "ShortRedColumn"
+            ],
+            [
+                "RedSkull",
+                "BlueSkull",
+                "YellowSkull"
+            ],
+            [
+                "YellowCard",
+                "RedCard",
+                "BlueCard"
+            ]
+        ],
+        "description": [
+            "pillar",
+            "skullkey",
+            "keycard"
+        ],
+        "connection_type": [
+            "after",
+            "and"
+        ]
+    },
+    {
+        "instruction": "Go to the pillar and Go to the skullkey after Go to the keycard",
+        "targets": [
+            [
+                "TallRedColumn",
+                "TallGreenColumn",
+                "ShortGreenColumn",
+                "ShortRedColumn"
+            ],
+            [
+                "RedSkull",
+                "BlueSkull",
+                "YellowSkull"
+            ],
+            [
+                "YellowCard",
+                "RedCard",
+                "BlueCard"
+            ]
+        ],
+        "description": [
+            "pillar",
+            "skullkey",
+            "keycard"
+        ],
+        "connection_type": [
+            "and",
+            "after"
+        ]
+    },
+    {
+        "instruction": "Go to the pillar and Go to the skullkey before Go to the keycard",
+        "targets": [
+            [
+                "TallRedColumn",
+                "TallGreenColumn",
+                "ShortGreenColumn",
+                "ShortRedColumn"
+            ],
+            [
+                "RedSkull",
+                "BlueSkull",
+                "YellowSkull"
+            ],
+            [
+                "YellowCard",
+                "RedCard",
+                "BlueCard"
+            ]
+        ],
+        "description": [
+            "pillar",
+            "skullkey",
+            "keycard"
+        ],
+        "connection_type": [
+            "and",
+            "before"
+        ]
+    },
+    {
+        "instruction": "Go to the pillar and Go to the skullkey and Go to the torch",
+        "targets": [
+            [
+                "TallRedColumn",
+                "TallGreenColumn",
+                "ShortGreenColumn",
+                "ShortRedColumn"
+            ],
+            [
+                "RedSkull",
+                "BlueSkull",
+                "YellowSkull"
+            ],
+            [
+                "BlueTorch",
+                "GreenTorch",
+                "RedTorch",
+                "ShortRedTorch",
+                "ShortGreenTorch",
+                "ShortBlueTorch"
+            ]
+        ],
+        "description": [
+            "pillar",
+            "skullkey",
+            "torch"
+        ],
+        "connection_type": [
+            "and",
+            "and"
+        ]
+    },
+    {
+        "instruction": "Go to the pillar before Go to the skullkey and Go to the torch",
+        "targets": [
+            [
+                "TallRedColumn",
+                "TallGreenColumn",
+                "ShortGreenColumn",
+                "ShortRedColumn"
+            ],
+            [
+                "RedSkull",
+                "BlueSkull",
+                "YellowSkull"
+            ],
+            [
+                "BlueTorch",
+                "GreenTorch",
+                "RedTorch",
+                "ShortRedTorch",
+                "ShortGreenTorch",
+                "ShortBlueTorch"
+            ]
+        ],
+        "description": [
+            "pillar",
+            "skullkey",
+            "torch"
+        ],
+        "connection_type": [
+            "before",
+            "and"
+        ]
+    },
+    {
+        "instruction": "Go to the pillar after Go to the skullkey and Go to the torch",
+        "targets": [
+            [
+                "TallRedColumn",
+                "TallGreenColumn",
+                "ShortGreenColumn",
+                "ShortRedColumn"
+            ],
+            [
+                "RedSkull",
+                "BlueSkull",
+                "YellowSkull"
+            ],
+            [
+                "BlueTorch",
+                "GreenTorch",
+                "RedTorch",
+                "ShortRedTorch",
+                "ShortGreenTorch",
+                "ShortBlueTorch"
+            ]
+        ],
+        "description": [
+            "pillar",
+            "skullkey",
+            "torch"
+        ],
+        "connection_type": [
+            "after",
+            "and"
+        ]
+    },
+    {
+        "instruction": "Go to the pillar and Go to the skullkey after Go to the torch",
+        "targets": [
+            [
+                "TallRedColumn",
+                "TallGreenColumn",
+                "ShortGreenColumn",
+                "ShortRedColumn"
+            ],
+            [
+                "RedSkull",
+                "BlueSkull",
+                "YellowSkull"
+            ],
+            [
+                "BlueTorch",
+                "GreenTorch",
+                "RedTorch",
+                "ShortRedTorch",
+                "ShortGreenTorch",
+                "ShortBlueTorch"
+            ]
+        ],
+        "description": [
+            "pillar",
+            "skullkey",
+            "torch"
+        ],
+        "connection_type": [
+            "and",
+            "after"
+        ]
+    },
+    {
+        "instruction": "Go to the pillar and Go to the skullkey before Go to the torch",
+        "targets": [
+            [
+                "TallRedColumn",
+                "TallGreenColumn",
+                "ShortGreenColumn",
+                "ShortRedColumn"
+            ],
+            [
+                "RedSkull",
+                "BlueSkull",
+                "YellowSkull"
+            ],
+            [
+                "BlueTorch",
+                "GreenTorch",
+                "RedTorch",
+                "ShortRedTorch",
+                "ShortGreenTorch",
+                "ShortBlueTorch"
+            ]
+        ],
+        "description": [
+            "pillar",
+            "skullkey",
+            "torch"
+        ],
+        "connection_type": [
+            "and",
+            "before"
+        ]
+    },
+    {
+        "instruction": "Go to the pillar and Go to the keycard and Go to the torch",
+        "targets": [
+            [
+                "TallRedColumn",
+                "TallGreenColumn",
+                "ShortGreenColumn",
+                "ShortRedColumn"
+            ],
+            [
+                "YellowCard",
+                "RedCard",
+                "BlueCard"
+            ],
+            [
+                "BlueTorch",
+                "GreenTorch",
+                "RedTorch",
+                "ShortRedTorch",
+                "ShortGreenTorch",
+                "ShortBlueTorch"
+            ]
+        ],
+        "description": [
+            "pillar",
+            "keycard",
+            "torch"
+        ],
+        "connection_type": [
+            "and",
+            "and"
+        ]
+    },
+    {
+        "instruction": "Go to the pillar before Go to the keycard and Go to the torch",
+        "targets": [
+            [
+                "TallRedColumn",
+                "TallGreenColumn",
+                "ShortGreenColumn",
+                "ShortRedColumn"
+            ],
+            [
+                "YellowCard",
+                "RedCard",
+                "BlueCard"
+            ],
+            [
+                "BlueTorch",
+                "GreenTorch",
+                "RedTorch",
+                "ShortRedTorch",
+                "ShortGreenTorch",
+                "ShortBlueTorch"
+            ]
+        ],
+        "description": [
+            "pillar",
+            "keycard",
+            "torch"
+        ],
+        "connection_type": [
+            "before",
+            "and"
+        ]
+    },
+    {
+        "instruction": "Go to the pillar after Go to the keycard and Go to the torch",
+        "targets": [
+            [
+                "TallRedColumn",
+                "TallGreenColumn",
+                "ShortGreenColumn",
+                "ShortRedColumn"
+            ],
+            [
+                "YellowCard",
+                "RedCard",
+                "BlueCard"
+            ],
+            [
+                "BlueTorch",
+                "GreenTorch",
+                "RedTorch",
+                "ShortRedTorch",
+                "ShortGreenTorch",
+                "ShortBlueTorch"
+            ]
+        ],
+        "description": [
+            "pillar",
+            "keycard",
+            "torch"
+        ],
+        "connection_type": [
+            "after",
+            "and"
+        ]
+    },
+    {
+        "instruction": "Go to the pillar and Go to the keycard after Go to the torch",
+        "targets": [
+            [
+                "TallRedColumn",
+                "TallGreenColumn",
+                "ShortGreenColumn",
+                "ShortRedColumn"
+            ],
+            [
+                "YellowCard",
+                "RedCard",
+                "BlueCard"
+            ],
+            [
+                "BlueTorch",
+                "GreenTorch",
+                "RedTorch",
+                "ShortRedTorch",
+                "ShortGreenTorch",
+                "ShortBlueTorch"
+            ]
+        ],
+        "description": [
+            "pillar",
+            "keycard",
+            "torch"
+        ],
+        "connection_type": [
+            "and",
+            "after"
+        ]
+    },
+    {
+        "instruction": "Go to the pillar and Go to the keycard before Go to the torch",
+        "targets": [
+            [
+                "TallRedColumn",
+                "TallGreenColumn",
+                "ShortGreenColumn",
+                "ShortRedColumn"
+            ],
+            [
+                "YellowCard",
+                "RedCard",
+                "BlueCard"
+            ],
+            [
+                "BlueTorch",
+                "GreenTorch",
+                "RedTorch",
+                "ShortRedTorch",
+                "ShortGreenTorch",
+                "ShortBlueTorch"
+            ]
+        ],
+        "description": [
+            "pillar",
+            "keycard",
+            "torch"
+        ],
+        "connection_type": [
+            "and",
+            "before"
+        ]
+    },
+    {
+        "instruction": "Go to the skullkey and Go to the keycard and Go to the torch",
+        "targets": [
+            [
+                "RedSkull",
+                "BlueSkull",
+                "YellowSkull"
+            ],
+            [
+                "YellowCard",
+                "RedCard",
+                "BlueCard"
+            ],
+            [
+                "BlueTorch",
+                "GreenTorch",
+                "RedTorch",
+                "ShortRedTorch",
+                "ShortGreenTorch",
+                "ShortBlueTorch"
+            ]
+        ],
+        "description": [
+            "skullkey",
+            "keycard",
+            "torch"
+        ],
+        "connection_type": [
+            "and",
+            "and"
+        ]
+    },
+    {
+        "instruction": "Go to the skullkey before Go to the keycard and Go to the torch",
+        "targets": [
+            [
+                "RedSkull",
+                "BlueSkull",
+                "YellowSkull"
+            ],
+            [
+                "YellowCard",
+                "RedCard",
+                "BlueCard"
+            ],
+            [
+                "BlueTorch",
+                "GreenTorch",
+                "RedTorch",
+                "ShortRedTorch",
+                "ShortGreenTorch",
+                "ShortBlueTorch"
+            ]
+        ],
+        "description": [
+            "skullkey",
+            "keycard",
+            "torch"
+        ],
+        "connection_type": [
+            "before",
+            "and"
+        ]
+    },
+    {
+        "instruction": "Go to the skullkey after Go to the keycard and Go to the torch",
+        "targets": [
+            [
+                "RedSkull",
+                "BlueSkull",
+                "YellowSkull"
+            ],
+            [
+                "YellowCard",
+                "RedCard",
+                "BlueCard"
+            ],
+            [
+                "BlueTorch",
+                "GreenTorch",
+                "RedTorch",
+                "ShortRedTorch",
+                "ShortGreenTorch",
+                "ShortBlueTorch"
+            ]
+        ],
+        "description": [
+            "skullkey",
+            "keycard",
+            "torch"
+        ],
+        "connection_type": [
+            "after",
+            "and"
+        ]
+    },
+    {
+        "instruction": "Go to the skullkey and Go to the keycard after Go to the torch",
+        "targets": [
+            [
+                "RedSkull",
+                "BlueSkull",
+                "YellowSkull"
+            ],
+            [
+                "YellowCard",
+                "RedCard",
+                "BlueCard"
+            ],
+            [
+                "BlueTorch",
+                "GreenTorch",
+                "RedTorch",
+                "ShortRedTorch",
+                "ShortGreenTorch",
+                "ShortBlueTorch"
+            ]
+        ],
+        "description": [
+            "skullkey",
+            "keycard",
+            "torch"
+        ],
+        "connection_type": [
+            "and",
+            "after"
+        ]
+    },
+    {
+        "instruction": "Go to the skullkey and Go to the keycard before Go to the torch",
+        "targets": [
+            [
+                "RedSkull",
+                "BlueSkull",
+                "YellowSkull"
+            ],
+            [
+                "YellowCard",
+                "RedCard",
+                "BlueCard"
+            ],
+            [
+                "BlueTorch",
+                "GreenTorch",
+                "RedTorch",
+                "ShortRedTorch",
+                "ShortGreenTorch",
+                "ShortBlueTorch"
+            ]
+        ],
+        "description": [
+            "skullkey",
+            "keycard",
+            "torch"
+        ],
+        "connection_type": [
+            "and",
+            "before"
+        ]
+    }
+]
