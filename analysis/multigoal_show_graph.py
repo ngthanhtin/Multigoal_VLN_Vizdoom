@@ -153,30 +153,6 @@ def plot_graph_2(graphs, labels, level='easy', shown_type='acc'):
                 tmp_weights_lb.append(weights_2[i][j])
         weights_ub.append(tmp_weights_ub)
         weights_lb.append(tmp_weights_lb)
-
-    # if level == 'easy':
-    #     weights[1] = weights[1][:-200]
-    #     times[1] = times[1][:-200]
-    # if level == 'medium':
-    #     weights[0] = weights[0][:-110] # san + ae
-    #     times[0] = times[0][:-110]
-
-    #     weights[1] = weights[1][:7170] # based
-    #     times[1] = times[1][:7170]
-        
-    #     weights[2] = weights[2][:6955] # san only
-    #     times[2] = times[2][:6955]
-    # if level == 'hard':
-    #     weights[0] = weights[0][:-800]
-    #     times[0] = times[0][:-800]
-        
-    #     weights[1] = weights[1][:10000] #based
-    #     times[1] = times[1][:10000]
-
-    #plot the max dashed lines
-    # points1 = np.ones(int(max(times1)))
-    # points2 = np.ones(int(max(times2)))
-    # points3 = np.ones(int(max(times3)))
     
     weights_max = []
     times_max_index = []
@@ -221,12 +197,14 @@ def plot_graph_2(graphs, labels, level='easy', shown_type='acc'):
 
     text_style = dict(horizontalalignment='right', verticalalignment='center',
                   fontsize=7, fontdict={'family': 'monospace'})
-    plt.plot((0, times[0][times_max_index[0]]), (weights_max[0], weights_max[0]), color = 'black', linestyle='dashed') # horizontal 1 (FGA)
-    plt.text(2, weights_max[0] + 0.02, "0.801", **text_style)
-    plt.plot((0, times[0][times_max_index[0]]), (weights_max[1], weights_max[1]), color = 'black', linestyle='dashed') # horizontal 2 (GA)
-    plt.text(2, weights_max[1] + 0.02, "0.324", **text_style)
-    plt.plot((times[0][times_max_index[0]], times[0][times_max_index[0]]), (0.03, weights_max[0]), color = 'black', linestyle='dashed')# vertical
-    plt.text(times[0][times_max_index[0]] + 0.5, 0.01, "35", **text_style)
+    # plt.plot((0, times[0][times_max_index[0]]), (weights_max[0], weights_max[0]), color = 'black', linestyle='dashed') # horizontal 1 (FGA)
+    # plt.text(2, weights_max[0] + 0.02, "0.801", **text_style)
+    # plt.plot((0, times[0][times_max_index[0]]), (weights_max[1], weights_max[1]), color = 'black', linestyle='dashed') # horizontal 2 (GA)
+    # plt.text(0.3, weights_max[1] - 0.005, "0.324", **text_style)
+    # plt.plot((0, times[0][times_max_index[0]]), (weights_max[2], weights_max[2]), color = 'black', linestyle='dashed') # horizontal 3 (CA)
+    # plt.text(0.3, weights_max[2] - 0.005, "0.299", **text_style)
+    # plt.plot((times[0][times_max_index[0]], times[0][times_max_index[0]]), (0.03, weights_max[0]), color = 'black', linestyle='dashed')# vertical
+    # plt.text(times[0][times_max_index[0]] + 0.5, 0.01, "35", **text_style)
 
     #plot shade
     times_clone = []
@@ -327,7 +305,7 @@ if __name__ == "__main__":
         graph2 = read_file(text_file="./saved/fourier_models/two_goals/easy/train_easy_multigoal_fourier_d1_gated.log")
         graph3 = read_file(text_file="./train_easy_multigoal_convolve.log")
         # plot
-        plot_graph_2(graphs=[graph1, graph2, graph3], labels=["FGA easy (2 Goals)", "GA easy (2 Goals)", 'Convolve easy (2 Goals)'], level='easy', shown_type=args.type)
+        plot_graph_2(graphs=[graph1, graph2, graph3], labels=["FGA easy (2 Goals)", "GA easy (2 Goals)", 'CA easy (2 Goals)'], level='easy', shown_type=args.type)
         # plot_reaches(text_file="./saved/fourier_models/two_goals/easy/train_easy_multigoal_fourier_d1.log")
         
     elif args.difficulty == 'medium':
@@ -337,7 +315,7 @@ if __name__ == "__main__":
         plot_graph_2(graphs=[graph1], labels=['FAN medium'], level='medium', shown_type=args.type)
     elif args.difficulty == 'hard':
         # hard
-        graph1 = read_file(text_file='train_hard_multigoal_fourier_d1.log')
+        graph1 = read_file(text_file='./saved/fourier_models/two_goals/hard/train_hard_multigoal_fourier_d1.log')
         # graph2 = read_file(text_file="train_hard_multigoal_fourier_d1_gated.log")
         #plot
         plot_graph_2(graphs=[graph1], labels=['FGA hard'], level='hard', shown_type=args.type)

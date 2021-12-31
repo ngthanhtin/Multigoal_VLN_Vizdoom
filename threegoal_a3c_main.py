@@ -10,7 +10,7 @@ import env.threegoals_env as grounding_env
 from models.models import A3C_LSTM_GA
 from threegoal_a3c_train import train
 from threegoal_a3c_test import test
-from ae.auto_encoder import Auto_Encoder_Model_PReLu, Auto_Encoder_Model_PReLu224
+from ae.auto_encoder import Auto_Encoder_Model_PReLu224
 
 torch.multiprocessing.set_start_method('spawn', force=True)
 
