@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 import cv2
 from ae.auto_encoder import Auto_Encoder_Model_PReLu224
 
-log_file = 'train_easy_threegoal_fourier_d1_gated.log'
+log_file = 'train_easy_threegoal_convolve.log'
 device = 'cpu'
 
 def ensure_shared_grads(model, shared_model):
