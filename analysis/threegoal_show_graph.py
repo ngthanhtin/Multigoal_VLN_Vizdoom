@@ -128,7 +128,7 @@ def plot_graph_2(graphs, labels, level='easy', shown_type='acc'):
             weights.append(rewards[i])
 
     # upper bound and lower bound smooth 
-    weight_smooth_2 = 0.0
+    weight_smooth_2 = 0.99
     weights_2 = []
     weights_ub = []
     weights_lb = []
@@ -183,6 +183,8 @@ def plot_graph_2(graphs, labels, level='easy', shown_type='acc'):
     plt.plot((0, times[0][times_max_index[0]]), (weights_max[0], weights_max[0]), color = 'black', linestyle='dashed') # horizontal 1 (FGA)
     plt.text(2, weights_max[0] + 0.02, "0.483", **text_style)
     plt.plot((0, times[0][times_max_index[0]]), (weights_max[1], weights_max[1]), color = 'black', linestyle='dashed') # horizontal 2 (GA)
+    plt.text(2, weights_max[2] + 0.02, "0.444", **text_style)
+    plt.plot((0, times[0][times_max_index[0]]), (weights_max[2], weights_max[2]), color = 'black', linestyle='dashed') # horizontal 3 (CA)
     plt.text(2, weights_max[1] + 0.02, "0.265", **text_style)
     plt.plot((times[0][times_max_index[0]], times[0][times_max_index[0]]), (0.03, weights_max[0]), color = 'black', linestyle='dashed')# vertical
     plt.text(times[0][times_max_index[0]] + 0.5, 0.01, "47", **text_style)
@@ -274,9 +276,10 @@ if __name__ == "__main__":
         # easy
         graph1 = read_file(text_file="./saved/fourier_models/three_goals/easy/train_easy_threegoal_fourier_d1.log")
         graph2 = read_file(text_file="./saved/fourier_models/three_goals/easy/train_easy_threegoal_fourier_d1_gated.log")
+        graph3 = read_file(text_file='./saved/train_easy_threegoal_convolve.log')
         # plot
-        # plot_graph_2(graphs=[graph1, graph2], labels=["FGA easy (Three Goals)", "GA easy (Three Goals)"], level='easy', shown_type=args.type)
-        plot_reaches(text_file="./saved/fourier_models/three_goals/easy/train_easy_threegoal_fourier_d1.log")
+        plot_graph_2(graphs=[graph1, graph2, graph3], labels=["FGA easy (3 Goals)", "GA easy (3 Goals)", "CA easy (3 Goals)"], level='easy', shown_type=args.type)
+        # plot_reaches(text_file="./saved/fourier_models/three_goals/easy/train_easy_threegoal_fourier_d1.log")
         
     elif args.difficulty == 'medium':
         # medium
