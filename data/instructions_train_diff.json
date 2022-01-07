@@ -1,0 +1,50 @@
+[
+    {
+        "instruction": "Go to the torch", 
+        "targets": [
+            "BlueTorch", 
+            "GreenTorch", 
+            "RedTorch", 
+            "ShortRedTorch", 
+            "ShortGreenTorch", 
+            "ShortBlueTorch"
+        ], 
+        "description": "torch"
+    }, 
+    {
+        "instruction": "Go to the keycard", 
+        "targets": [
+            "YellowCard", 
+            "RedCard", 
+            "BlueCard"
+        ], 
+        "description": "keycard"
+    }, 
+    {
+        "instruction": "Go to the skullkey", 
+        "targets": [
+            "RedSkull", 
+            "BlueSkull", 
+            "YellowSkull"
+        ], 
+        "description": "skullkey"
+    }, 
+    {
+        "instruction": "Go to the pillar", 
+        "targets": [
+            "TallRedColumn", 
+            "TallGreenColumn", 
+            "ShortGreenColumn", 
+            "ShortRedColumn"
+        ], 
+        "description": "pillar"
+    }, 
+    {
+        "instruction": "Go to the armor", 
+        "targets": [
+            "GreenArmor", 
+            "BlueArmor"
+        ], 
+        "description": "armor"
+    }
+]
