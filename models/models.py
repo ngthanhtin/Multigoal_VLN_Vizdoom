@@ -171,7 +171,7 @@ class A3C_LSTM_GA(torch.nn.Module):
         self.args = args
         if args.attention == 'fga' or args.attention == 'convolve':
             self.prelu = nn.PReLU() 
-        elif args.attention == 'ga':
+        elif args.attention == 'gated':
             self.prelu = nn.ReLU() 
         else:
             print("Wrong Attention type....")
@@ -217,7 +217,7 @@ class A3C_LSTM_GA(torch.nn.Module):
         if args.attention == 'convolve':
             self.linear = nn.Linear(960, 256)
         if args.attention == 'gated':
-            self.linear = nn.Linear(64*8*17, 256)
+            self.linear = nn.Linear(64*12*12, 256)
     
 
         self.lstm = nn.LSTMCell(256, 256)
@@ -253,8 +253,8 @@ class A3C_LSTM_GA(torch.nn.Module):
 
             # Get the image representation
             N, Cin, H, W = x.shape
-            if self.args.attention == 'fga':
-                x = F.interpolate(x, (224, 224))
+            # if self.args.attention == 'fga':
+            x = F.interpolate(x, (224, 224))
 
             x = self.conv1(x) 
             x = self.prelu(x)
