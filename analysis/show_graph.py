@@ -1,3 +1,4 @@
+from os import read
 from matplotlib import pyplot as plt
 import matplotlib
 import datetime
@@ -106,7 +107,7 @@ def plot_graph_2(graphs, labels, level='easy', shown_type='acc'):
     if len(graphs) != len(labels):
         print("Wrong!!!")
         return
-    colors = ['green', 'red', 'blue', 'red', "royalblue"]
+    colors = ['green', 'darkred', 'blue', 'red', "royalblue"]
     
     times = []
     rewards = []
@@ -203,6 +204,16 @@ def plot_graph_2(graphs, labels, level='easy', shown_type='acc'):
     # plt.text(times[0][times_max_index[0]] + 2, 0.01, "101", **text_style)
     # plt.plot((44, 44), (0.03, weights_max[2]), color = 'black', linestyle='dashed')# vertical 3
     # plt.text(44 + 2, 0.01, "44", **text_style)
+
+    # easy diff
+    plt.plot((times[1][times_max_index[1]], times[1][times_max_index[1]]), (0.04, weights_max[1]), color = 'black', linestyle='dashed')# vertical
+    plt.text(times[1][times_max_index[1]] + 0.3, 0.02, "25", **text_style)
+    plt.plot((0, times[1][times_max_index[1]]), (weights_max[1], weights_max[1]), color = 'black', linestyle='dashed')# horizontal 1
+    plt.text(0, weights_max[1], "0.902", **text_style)
+    plt.plot((0, times[0][times_max_index[0]]), (weights_max[0], weights_max[0]), color = 'black', linestyle='dashed')# horizontal 2
+    plt.text(0, weights_max[0], "0.296", **text_style)
+    plt.plot((0, times[2][times_max_index[2]]), (weights_max[2], weights_max[2]), color = 'black', linestyle='dashed')# horizontal 3
+    plt.text(0, weights_max[2], "0.389", **text_style)
     
 
     # medium
@@ -216,14 +227,14 @@ def plot_graph_2(graphs, labels, level='easy', shown_type='acc'):
     # plt.text(80 + 2, 0.01, "82", **text_style)
     
     # # hard
-    plt.text(0, weights_max[1], "0.57", **text_style)
-    plt.plot((0, times[0][times_max_index[0]]), (weights_max[0], weights_max[0]), color = 'black', linestyle='dashed') # horizontal
-    plt.plot((26.9, 26.9), (0.03, weights_max[0]), color = 'black', linestyle='dashed')# vertical 1
-    plt.text(26.9 + 2, 0.01, "26.9", **text_style)
-    plt.plot((times[0][times_max_index[0]], times[0][times_max_index[0]]), (0.03, weights_max[0]), color = 'black', linestyle='dashed')# vertical 2
-    plt.text(times[0][times_max_index[0]] + 2, 0.01, "172", **text_style)
-    plt.plot((129, 129), (0.03, weights_max[0]), color = 'black', linestyle='dashed')# vertical 3
-    plt.text(129+2, 0.01, "129", **text_style)
+    # plt.text(0, weights_max[1], "0.57", **text_style)
+    # plt.plot((0, times[0][times_max_index[0]]), (weights_max[0], weights_max[0]), color = 'black', linestyle='dashed') # horizontal
+    # plt.plot((26.9, 26.9), (0.03, weights_max[0]), color = 'black', linestyle='dashed')# vertical 1
+    # plt.text(26.9 + 2, 0.01, "26.9", **text_style)
+    # plt.plot((times[0][times_max_index[0]], times[0][times_max_index[0]]), (0.03, weights_max[0]), color = 'black', linestyle='dashed')# vertical 2
+    # plt.text(times[0][times_max_index[0]] + 2, 0.01, "172", **text_style)
+    # plt.plot((129, 129), (0.03, weights_max[0]), color = 'black', linestyle='dashed')# vertical 3
+    # plt.text(129+2, 0.01, "129", **text_style)
 
     for i in range(len(weights)):
         if i in abandoned_graph:
@@ -238,7 +249,7 @@ def plot_graph_2(graphs, labels, level='easy', shown_type='acc'):
     plt.ylim(0, 1)
     # if level == 'hard':
     #     plt.ylim(0, 0.6)
-    plt.legend(handles=lines_0, bbox_to_anchor=(0.5, 1.05), loc='center', ncol=2)
+    plt.legend(handles=lines_0, bbox_to_anchor=(0.5, 1.05), loc='center')#, ncol=2)
     plt.xlabel("Hours")
     if shown_type=='acc':
         plt.ylabel("Accuracy")
@@ -274,11 +285,15 @@ if __name__ == "__main__":
 
     if args.difficulty == 'easy':
         # easy
-        graph1 = read_file(text_file="/home/tinvn/TIN/NLP_RL_Code/AE_VLN_Vizdoom/saved/easy/based_easy/train_based_easy.log") # base
-        graph2 = read_file(text_file="./saved/fourier_models/single_goal/easy/train_easy_forier_d1.log")
-        graph3 = read_file(text_file="./saved/convolve/train_easy_convolve.log")
+        # graph1 = read_file(text_file="/home/tinvn/TIN/NLP_RL_Code/AE_VLN_Vizdoom/saved/easy/based_easy/train_based_easy.log") # base
+        graph1 = read_file(text_file='./train_easy_diff_gated.log')
+        # graph2 = read_file(text_file="./saved/fourier_models/single_goal/easy/train_easy_forier_d1.log")
+        graph2 = read_file(text_file='./train_easy_diff_fourier.log')
+        # graph3 = read_file(text_file="./saved/convolve/train_easy_convolve.log")
+        graph3 = read_file(text_file='./train_easy_diff_convolve.log')
+        
         # plot
-        plot_graph_2(graphs=[graph1, graph2, graph3], labels=['GA easy', 'FGA easy', "CA easy"], level='easy', shown_type=args.type)
+        plot_graph_2(graphs=[graph1, graph2, graph3], labels=['GA easy (1 Goal - Only Objects)', 'FGA easy (1 Goal - Only Objects)', "CA easy (1 Goal - Only Objects)"], level='easy', shown_type=args.type)
     elif args.difficulty == 'medium':
         # medium
         graph1 = read_file(text_file="/home/tinvn/TIN/NLP_RL_Code/AE_VLN_Vizdoom/saved/medium/based_medium/train8_medium.log")

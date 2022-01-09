@@ -215,7 +215,7 @@ class A3C_LSTM_GA(torch.nn.Module):
         if args.attention == 'fga':
             self.linear = nn.Linear(64*12*12, 256)
         if args.attention == 'convolve':
-            self.linear = nn.Linear(960, 256)
+            self.linear = nn.Linear(1280, 256)
         if args.attention == 'gated':
             self.linear = nn.Linear(64*12*12, 256)
     
@@ -287,7 +287,7 @@ class A3C_LSTM_GA(torch.nn.Module):
             att = self.attention(x_emb, s_emb)
     
         x = att
-
+        
         # A3C-LSTM
         if self.args.attention == 'fga' or self.args.attention == 'convolve':
             x = self.prelu(self.linear(x))

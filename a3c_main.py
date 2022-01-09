@@ -43,15 +43,15 @@ parser.add_argument('--interactive', type=int, default=0,
                     help="""Interactive mode enables human to play
                     (default: 0)""")
 parser.add_argument('--all-instr-file', type=str,
-                    default="data/instructions_all.json",
+                    default="data/instructions_all_diff.json",
                     help="""All instructions file
                     (default: data/instructions_all.json)""")
 parser.add_argument('--train-instr-file', type=str,
-                    default="data/instructions_train.json",
+                    default="data/instructions_train_diff.json",
                     help="""Train instructions file
                     (default: data/instructions_train.json)""")
 parser.add_argument('--test-instr-file', type=str,
-                    default="data/instructions_test.json",
+                    default="data/instructions_test_diff.json",
                     help="""Test instructions file
                     (default: data/instructions_test.json)""")
 parser.add_argument('--object-size-file', type=str,
