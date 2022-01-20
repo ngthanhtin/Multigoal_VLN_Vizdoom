@@ -210,29 +210,33 @@ def GradCAM():
 
     #load model
     model = A3C_LSTM_GA(args, ae_model=None).to(device)
-    model.load_state_dict(torch.load('./saved/fourier_models/single_goal/easy/train_easy_fourier_d1', map_location=torch.device(device)))
-    # model.load_state_dict(torch.load('/home/tinvn/TIN/NLP_RL_Code/DeepRL-Grounding/saved/fourier_models/two_goals/easy/train_easy_multigoal_fourier_d1', map_location=torch.device(device)))
+    # model.load_state_dict(torch.load('./saved/fourier_models/single_goal/easy/train_easy_fourier_d1', map_location=torch.device(device)))
+    # model.load_state_dict(torch.load('/home/tinvn/TIN/NLP_RL_Code/AE_VLN_Vizdoom/saved/convolve/train_easy_convolve', map_location=torch.device(device)))
     # model.load_state_dict(torch.load('/home/tinvn/TIN/NLP_RL_Code/DeepRL-Grounding/saved/fourier_models/three_goals/easy/train_easy_threegoal_fourier_d1', map_location=torch.device(device)))
     # model = model.eval()
     model = model.to(device)
 
     # Split model in two parts
     model_list = list(model.children())
-    # print(model_list[3].ff)
-    # print(model_list[3].layers)
-    # exit()
-    image_fn = nn.Sequential(model_list[4], model_list[0], model_list[5], model_list[0], model_list[6], model_list[0])
-    text_fn = nn.Sequential(model_list[1], model_list[2])
-    attn_linear_fn = model_list[3].attn_linear
-    att_fn = model_list[3]
 
-    fnet_blockimage = model_list[3].layers[0][0]
-    fnet_blocktext = model_list[3].layers[0][1]
-    linear_fn = nn.Sequential(model_list[8], model_list[0])
-    time_emb_fn = model_list[7]
-    hc_fn = model_list[9]
-    actor_fn = model_list[11]
-    critic_fn = model_list[10]
+    image_fn = nn.Sequential(model_list[6], model_list[0], model_list[7], model_list[0], model_list[8], model_list[0])
+    text_fn = nn.Sequential(model_list[1], model_list[2])
+    attn_linear_fn = model_list[3]
+    sub_text_feat_0 = attn_linear_fn.layers[0]
+    sub_text_feat_1 = attn_linear_fn.layers[1]
+    sub_text_feat_2 = attn_linear_fn.layers[2]
+    sub_text_feat_3 = attn_linear_fn.layers[3]
+    sub_text_feat_4 = attn_linear_fn.layers[4]
+    # print(attn_linear_fn.layers[0])
+
+    outtro_cnn = nn.Sequential(model_list[4], model_list[0], model_list[5], model_list[0])
+    
+    linear_fn = nn.Sequential(model_list[10], model_list[0])
+    
+    time_emb_fn = model_list[9]
+    hc_fn = model_list[11]
+    actor_fn = model_list[13]
+    critic_fn = model_list[12]
 
     episode_length = 0
     done = True
@@ -259,22 +263,42 @@ def GradCAM():
         tx = torch.Tensor(torch.from_numpy(np.array([episode_length])).float()).to(device) #.long()
         instruction_idx = instruction_idx.float().to(device)
 
-        image = F.interpolate(image.unsqueeze(0), (224, 224))
+        # image = F.interpolate(image.unsqueeze(0), (224, 224))
+        image = image.unsqueeze(0)
         image_feats = image_fn(torch.Tensor(image))
         # show_features_map(image_feats)
-        # print(image_feats.shape)
+        
         text_feats = text_fn(torch.Tensor(instruction_idx).long())
-        fnet_blockimage_feats = fnet_blockimage(image_feats)
-        # show_features_map(fnet_blockimage_feats)
-        fnet_blocktext_feats = fnet_blocktext(text_feats)
-        att_feats = att_fn(image_feats, text_feats)
-        # show_features_map(att_feats.reshape(1, 64, 12, 12))
+        
+        # attention
+        sub_text_ln_0 = sub_text_feat_0(text_feats).unsqueeze(2).unsqueeze(2)
+        sub_text_ln_1 = sub_text_feat_1(text_feats).unsqueeze(2).unsqueeze(2)
+        sub_text_ln_2 = sub_text_feat_2(text_feats).unsqueeze(2).unsqueeze(2)
+        sub_text_ln_3 = sub_text_feat_3(text_feats).unsqueeze(2).unsqueeze(2)
+        sub_text_ln_4 = sub_text_feat_4(text_feats).unsqueeze(2).unsqueeze(2)
 
+        
+        attention_0 = F.conv2d(image_feats, sub_text_ln_0, stride=(1,1))
+        att_feats = attention_0
+        attention_1 = F.conv2d(image_feats, sub_text_ln_1, stride=(1,1))
+        att_feats = torch.cat([att_feats, attention_1], 0)
+        attention_2 = F.conv2d(image_feats, sub_text_ln_2, stride=(1,1))
+        att_feats = torch.cat([att_feats, attention_2], 0)
+        attention_3 = F.conv2d(image_feats, sub_text_ln_3, stride=(1,1))
+        att_feats = torch.cat([att_feats, attention_3], 0)
+        attention_4 = F.conv2d(image_feats, sub_text_ln_4, stride=(1,1))
+        att_feats = torch.cat([att_feats, attention_4], 0)
+
+    
+        att_feats = outtro_cnn(att_feats)
+        att_feats = att_feats.view(-1).unsqueeze(0)
+        
         #show cca
         acts1 = image_feats.clone().detach()
-        pool2 = attn_linear_fn(text_feats)
+        # pool2 = attn_linear_fn(text_feats)
+        pool2 = sub_text_ln_4
         pool2 = pool2.clone().detach()
-        pool2 = pool2.unsqueeze(2).unsqueeze(3)
+        # pool2 = pool2.unsqueeze(2).unsqueeze(3)
         pool2 = pool2.expand(1, 64,12,12)
         acts1 = acts1.numpy()
         pool2 = pool2.numpy()
@@ -297,7 +321,7 @@ def GradCAM():
             
             all_results = pd.DataFrame()
             all_results = all_results.append(a_results, ignore_index=True)
-            all_results.to_pickle('../test_nofft_wpretrained.df')
+            all_results.to_pickle('notrained.df')
             _plot_helper(a_results["cca_coef1"], "CCA Coef idx", "CCA coef value")
             print('{:.4f}'.format(np.mean(a_results["cca_coef1"][:20]))) 
             # normal pretrained(full, top20): 0.1476, 0.619 # normal w/o pretrained: 0.1436, 0.4864
@@ -316,6 +340,7 @@ def GradCAM():
         ##
         linear_feats = linear_fn(att_feats)
         hx_feats, cx_feats = hc_fn(linear_feats, (hx, cx))
+        
         time_emb_feats = time_emb_fn(tx.long())
         x_feats = torch.cat((hx_feats, time_emb_feats.view(-1, 32)), 1)
         critic_feats = critic_fn(x_feats)
@@ -327,38 +352,6 @@ def GradCAM():
         log_prob = F.log_softmax(actor_feats,dim=-1)
         action = prob.multinomial(num_samples=1).data.float()
         log_prob = log_prob.gather(1, torch.Tensor(action0).long())
-        
-        # att_grads = torch.autograd.grad(critic_feats + log_prob, att_feats[2], retain_graph=True)
-        image_grads = torch.autograd.grad(log_prob, image_feats)
-        
-        # image_grads = image_grads[0].cpu().data.numpy()
-   
-        w = image_grads[0][0].mean(-1).mean(-1)
-    
-        # image_feats = torch.fft.fft(torch.fft.fft(image_feats, dim=-1), dim=-2).real
-        sal = torch.matmul(w, image_feats.view(64, 12*12))
-        sal = torch.nn.ReLU()(sal)
-        # sal = torch.matmul(w, att_feats[2].reshape(64, 12*12))
-       
-        sal = sal.view(12, 12).cpu().detach().numpy()
-        sal = np.maximum(sal, 0)
-
-        img = Image.fromarray(original_image).resize((224,224), Image.ANTIALIAS)
-        sal = Image.fromarray(sal)
-        sal = sal.resize(img.size, resample=Image.LINEAR)
-
-        fig, (ax1, ax2) = plt.subplots(ncols=2, figsize=(16, 16))
-        ax1.set_title('Original')
-        ax2.set_title('Grad Map')
-        _ = ax1.imshow(img)
-        _ = ax2.imshow(img)
-        _ = ax2.imshow(np.array(sal), alpha=0.5, cmap='jet')
-        
-        plot_img_np = get_img_from_fig(fig)
-        save_images_list.append(plot_img_np)
-        # plt.show()
-        plt.close()
-     
         
         # env
         # action = action.numpy()[0, 0]
@@ -378,12 +371,34 @@ def GradCAM():
             tx = torch.Tensor(torch.from_numpy(np.array([episode_length])).float()).to(device) #.long()
             instruction_idx = instruction_idx.float().to(device)
 
-            image = F.interpolate(image.unsqueeze(0), (224, 224))
+            # image = F.interpolate(image.unsqueeze(0), (224, 224))
+            image = image.unsqueeze(0)
             image_feats = image_fn(torch.Tensor(image))
             text_feats = text_fn(torch.Tensor(instruction_idx).long())
-            fnet_blockimage_feats = fnet_blockimage(image_feats)
-            fnet_blocktext_feats = fnet_blocktext(text_feats)
-            att_feats = att_fn(image_feats, text_feats)
+            
+            # attention
+            sub_text_ln_0 = sub_text_feat_0(text_feats).unsqueeze(2).unsqueeze(2)
+            sub_text_ln_1 = sub_text_feat_1(text_feats).unsqueeze(2).unsqueeze(2)
+            sub_text_ln_2 = sub_text_feat_2(text_feats).unsqueeze(2).unsqueeze(2)
+            sub_text_ln_3 = sub_text_feat_3(text_feats).unsqueeze(2).unsqueeze(2)
+            sub_text_ln_4 = sub_text_feat_4(text_feats).unsqueeze(2).unsqueeze(2)
+
+            
+            attention_0 = F.conv2d(image_feats, sub_text_ln_0, stride=(1,1))
+            att_feats = attention_0
+            attention_1 = F.conv2d(image_feats, sub_text_ln_1, stride=(1,1))
+            att_feats = torch.cat([att_feats, attention_1], 0)
+            attention_2 = F.conv2d(image_feats, sub_text_ln_2, stride=(1,1))
+            att_feats = torch.cat([att_feats, attention_2], 0)
+            attention_3 = F.conv2d(image_feats, sub_text_ln_3, stride=(1,1))
+            att_feats = torch.cat([att_feats, attention_3], 0)
+            attention_4 = F.conv2d(image_feats, sub_text_ln_4, stride=(1,1))
+            att_feats = torch.cat([att_feats, attention_4], 0)
+
+        
+            att_feats = outtro_cnn(att_feats)
+            att_feats = att_feats.view(-1).unsqueeze(0)
+
             linear_feats = linear_fn(att_feats)
             hx_feats, cx_feats = hc_fn(linear_feats, (hx, cx))
             time_emb_feats = time_emb_fn(tx.long())
@@ -397,36 +412,6 @@ def GradCAM():
             log_prob = F.log_softmax(actor_feats,dim=-1)
             action = prob.multinomial(num_samples=1).data.float()
             log_prob = log_prob.gather(1, torch.Tensor(action0).long())
-            
-            # att_grads = torch.autograd.grad(critic_feats + log_prob, att_feats[2], retain_graph=True)
-
-            image_grads = torch.autograd.grad(log_prob, image_feats)
-
-            w = image_grads[0][0].mean(-1).mean(-1)
-            # image_feats = image_feats[-1]
-            # image_feats = torch.fft.fft(torch.fft.fft(image_feats, dim=-1), dim=-2).real
-            sal = torch.matmul(w, image_feats.view(64, 12*12))
-            sal = torch.nn.ReLU()(sal)
-            # sal = torch.matmul(w, att_feats[2].reshape(64, 12*12))
-        
-            sal = sal.view(12, 12).cpu().detach().numpy()
-            sal = np.maximum(sal, 0)
-    
-            img = Image.fromarray(original_image).resize((224,224), Image.ANTIALIAS)
-            sal = Image.fromarray(sal)
-            sal = sal.resize(img.size, resample=Image.LINEAR)
-
-            fig, (ax1, ax2) = plt.subplots(ncols=2, figsize=(16, 16))
-            ax1.set_title('Original')
-            ax2.set_title('Grad Map')
-            _ = ax1.imshow(img)
-            _ = ax2.imshow(img)
-            _ = ax2.imshow(np.array(sal), alpha=0.5, cmap='jet')
-            
-            plot_img_np = get_img_from_fig(fig)
-            save_images_list.append(plot_img_np)
-            # plt.show()
-            plt.close()
       
 
             if reward_sum == 2.: # for two goal setting

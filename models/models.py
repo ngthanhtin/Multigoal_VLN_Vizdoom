@@ -32,16 +32,6 @@ class PreNorm(nn.Module):
     def forward(self, x, **kwargs):
         return self.fn(self.norm(x), **kwargs)
 
-
-class FNetBlock(nn.Module):
-  def __init__(self):
-    super().__init__()
-    
-  def forward(self, x):
-    x = torch.fft.fft(torch.fft.fft(x, dim=-1), dim=-2).real
-    return x
-
-
 class FNetBlockText(nn.Module):
   def __init__(self):
     super().__init__()
@@ -176,7 +166,6 @@ class A3C_LSTM_GA(torch.nn.Module):
         else:
             print("Wrong Attention type....")
 
-        # self.convert = nn.Linear(55488, 8704)
         #init auto encoder
         if args.auto_encoder:
             self.ae_model = ae_model
@@ -184,19 +173,18 @@ class A3C_LSTM_GA(torch.nn.Module):
         self.w_emb = WordEmbedding(args.vocab_size, 32, 0.0) # , op='c'
         # self.w_emb = tfidf_loading(self.w_emb, args.dictionary)
         self.s_emb = SentenceEmbedding(32, 256, 1, False, 0.0, 'GRU')
-        # self.s_emb_att = SentenceSelfAttention(256, 0)
-
+        
         #-------------------ATTENTION------------------#
         if args.attention == 'fga':
         # fnet attention
-            self.attention = FNet(12, 256, 64, 3, 64, 0)
+            self.v_att = FNet(12, 256, 64, 3, 64, 0) #v_att
         if args.attention == 'convolve':
-            self.attention = ConvolvedAttention(5, 8*17, 256, 64) # 5 ,1,8,17
+            self.v_att = ConvolvedAttention(5, 8*17, 256, 64) # 5 ,1,8,17
             self.conv_4 = nn.Conv2d(1, 64, kernel_size=3, stride=2)
             self.conv_5 = nn.Conv2d(64, 64, kernel_size=3, stride=2)
         else:
         # gated attention
-            self.attention = GatedAttention(12, 256, 64)
+            self.v_att = GatedAttention(12, 256, 64)
             
         #-----------------------------------------------#
 
@@ -215,7 +203,7 @@ class A3C_LSTM_GA(torch.nn.Module):
         if args.attention == 'fga':
             self.linear = nn.Linear(64*12*12, 256)
         if args.attention == 'convolve':
-            self.linear = nn.Linear(1280, 256)
+            self.linear = nn.Linear(960, 256)
         if args.attention == 'gated':
             self.linear = nn.Linear(64*12*12, 256)
     
@@ -253,8 +241,7 @@ class A3C_LSTM_GA(torch.nn.Module):
 
             # Get the image representation
             N, Cin, H, W = x.shape
-            # if self.args.attention == 'fga':
-            x = F.interpolate(x, (224, 224))
+            # x = F.interpolate(x, (224, 224))
 
             x = self.conv1(x) 
             x = self.prelu(x)
@@ -274,9 +261,9 @@ class A3C_LSTM_GA(torch.nn.Module):
 
         if self.args.attention == 'fga':
             #f-net attention
-            att = self.attention(x_emb, s_emb)
+            att = self.v_att(x_emb, s_emb)
         if self.args.attention == "convolve":
-            att = self.attention(x_emb, s_emb)
+            att = self.v_att(x_emb, s_emb)
             att = self.conv_4(att)
             att = self.prelu(att)
             att = self.conv_5(att)
@@ -284,7 +271,7 @@ class A3C_LSTM_GA(torch.nn.Module):
             att = att.view(-1).unsqueeze(0)            
         else:
             # gated attention
-            att = self.attention(x_emb, s_emb)
+            att = self.v_att(x_emb, s_emb)
     
         x = att
         
