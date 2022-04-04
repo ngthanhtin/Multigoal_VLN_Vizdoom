@@ -48,7 +48,7 @@ parser.add_argument('--all-instr-file', type=str,
                     help="""All instructions file
                     (default: data/instructions_all.json)""")
 parser.add_argument('--train-instr-file', type=str,
-                    default="data/multigoal_instruction/twogoal_instructions_train.json",
+                    default="data/multigoal_instruction/twogoal_instructions_train_no_order.json",
                     help="""Train instructions file
                     (default: data/instructions_train.json)""")
 parser.add_argument('--test-instr-file', type=str,

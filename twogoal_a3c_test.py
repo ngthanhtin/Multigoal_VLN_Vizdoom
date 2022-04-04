@@ -12,7 +12,7 @@ from models.models import A3C_LSTM_GA
 from ae.auto_encoder import Auto_Encoder_Model_PReLu224
 from utils.constants import *
 device='cpu'
-log_file = 'train_easy_multigoal_convolve.log'
+log_file = 'train_easy_multigoal_convolve_noorder.log'
 
 
 def test(rank, args, shared_model):
@@ -162,7 +162,7 @@ def test(rank, args, shared_model):
                         "Best Reward {}\n".format(best_reward)]))
                 if np.mean(rewards_list) >= best_reward and args.evaluate == 0:
                     torch.save(model.state_dict(),
-                               args.dump_location+"train_easy_multigoal_convolve")
+                               args.dump_location+"train_easy_multigoal_convolve_noorder")
 
                     best_reward = np.mean(rewards_list)
 
