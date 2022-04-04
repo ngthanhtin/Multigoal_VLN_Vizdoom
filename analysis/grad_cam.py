@@ -210,9 +210,9 @@ def GradCAM():
 
     #load model
     model = A3C_LSTM_GA(args, ae_model=None).to(device)
-    model.load_state_dict(torch.load('./saved/fourier_models/single_goal/easy/train_easy_fourier_d1', map_location=torch.device(device)))
-    # model.load_state_dict(torch.load('/home/tinvn/TIN/NLP_RL_Code/DeepRL-Grounding/saved/fourier_models/two_goals/easy/train_easy_multigoal_fourier_d1', map_location=torch.device(device)))
-    # model.load_state_dict(torch.load('/home/tinvn/TIN/NLP_RL_Code/DeepRL-Grounding/saved/fourier_models/three_goals/easy/train_easy_threegoal_fourier_d1', map_location=torch.device(device)))
+    # model.load_state_dict(torch.load('./saved/fourier_models/single_goal/easy/train_easy_fourier_d1', map_location=torch.device(device)))
+    # model.load_state_dict(torch.load('./saved/fourier_models/two_goals/easy/train_easy_multigoal_fourier_d1', map_location=torch.device(device)))
+    model.load_state_dict(torch.load('./saved/fourier_models/three_goals/easy/train_easy_threegoal_fourier_d1', map_location=torch.device(device)))
     # model = model.eval()
     model = model.to(device)
 
@@ -240,6 +240,7 @@ def GradCAM():
     num_episode = 0
     reward_sum = 0
     save_images_list = []
+    save_att_list = []
 
     image_feats_arr = []
     text_feats_arr = []
@@ -286,33 +287,34 @@ def GradCAM():
         avg_pool2 = np.mean(pool2, axis=(2,3))
         image_feats_arr.append(avg_acts1)
         text_feats_arr.append(avg_pool2)
-        print(len(image_feats_arr))
+        # print(len(image_feats_arr))
         
-        dft = False
-        if len(image_feats_arr) == 1000 and dft == False:
-            image_feats_arr = np.squeeze(np.asarray(image_feats_arr))
-            text_feats_arr = np.squeeze(np.asarray(text_feats_arr))
-            print("shapes after average pool over spatial dimensions", image_feats_arr.shape, text_feats_arr.shape)
-            a_results = cca_core.get_cca_similarity(image_feats_arr.T, text_feats_arr.T, epsilon=1e-7,compute_dirns=True, verbose=True)
+        dft = True
+        # if len(image_feats_arr) == 1000 and dft == False:
+        #     image_feats_arr = np.squeeze(np.asarray(image_feats_arr))
+        #     text_feats_arr = np.squeeze(np.asarray(text_feats_arr))
+        #     print("shapes after average pool over spatial dimensions", image_feats_arr.shape, text_feats_arr.shape)
+        #     a_results = cca_core.get_cca_similarity(image_feats_arr.T, text_feats_arr.T, epsilon=1e-7,compute_dirns=True, verbose=True)
             
-            all_results = pd.DataFrame()
-            all_results = all_results.append(a_results, ignore_index=True)
-            all_results.to_pickle('../test_nofft_wpretrained.df')
-            _plot_helper(a_results["cca_coef1"], "CCA Coef idx", "CCA coef value")
-            print('{:.4f}'.format(np.mean(a_results["cca_coef1"][:20]))) 
+        #     all_results = pd.DataFrame()
+        #     all_results = all_results.append(a_results, ignore_index=True)
+        #     # all_results.to_pickle('../test_nofft_wpretrained.df')
+        #     _plot_helper(a_results["cca_coef1"], "CCA Coef idx", "CCA coef value")
+        #     print('{:.4f}'.format(np.mean(a_results["cca_coef1"][:20]))) 
+        #     exit()
             # normal pretrained(full, top20): 0.1476, 0.619 # normal w/o pretrained: 0.1436, 0.4864
-            # fnet pretrained 0.5359# fnet without pretrained: 0.3199
+            #fnet pretrained 0.5359# fnet without pretrained: 0.3199
             # 1000: 0.3878, 1000: 0.3089, 1000: no pretrained no fourier: 0.3732, no fourier with pretrained: 0.5885 (1e-7)
-            image_feats_arr = []
-            text_feats_arr = []
-        # if len(fft_images_feats_arr) == 500 and dft == True:
+            # image_feats_arr = []
+            # text_feats_arr = []
+        # if len(fft_images_feats_arr) == 1000 and dft == True:
         #     fft_images_feats_arr = np.squeeze(np.asarray(fft_images_feats_arr))
         #     fft_text_feats_arr = np.squeeze(np.asarray(fft_text_feats_arr))
         #     # print(fft_images_feats_arr.shape, fft_text_feats_arr.shape)
         #     result = fourier_ccas2(fft_images_feats_arr, fft_text_feats_arr, return_coefs=True, compute_dirns=True)
         #     fft_images_feats_arr = []
         #     fft_text_feats_arr = []
-        #     result.to_pickle('../vv_ff_wpretrained.df')
+        #     result.to_pickle('../new_fft.df')
         ##
         linear_feats = linear_fn(att_feats)
         hx_feats, cx_feats = hc_fn(linear_feats, (hx, cx))
@@ -429,19 +431,30 @@ def GradCAM():
             plt.close()
       
 
-            if reward_sum == 2.: # for two goal setting
+            # if reward_sum == 2.: # for two goal setting
+            #     # save image
+            #     root_path = './docs/videos_2/' + str(num_episode) + '_' + instruction
+            #     if not os.path.isdir(root_path):
+            #         os.makedirs(root_path)
+            #     for image_index in range(len(save_images_list)):
+            #         cv2.imwrite(root_path + "/{}.png".format(image_index), save_images_list[image_index])
+
+            if reward_sum >= 2.: # for two goal setting
                 # save image
-                root_path = './docs/videos/' + str(num_episode) + '_' + instruction
+                root_path = './docs/videos_3/' + str(num_episode) + '_' + instruction
                 if not os.path.isdir(root_path):
                     os.makedirs(root_path)
                 for image_index in range(len(save_images_list)):
-                    cv2.imwrite(root_path + "/{}.png".format(image_index), save_images_list[image_index])
+                    cv2.imwrite(root_path + "/{}_{}.png".format(image_index, reward_sum), save_images_list[image_index])
+                    # cv2.imwrite(root_path + "/att_{}.png".format(image_index), save_att_list[image_index])
 
+            print(reward_sum)
             reward_sum = 0
             save_images_list = []
+            save_att_list = []
             num_episode += 1
             
-            print(reward)
+            
             (image, depth, instruction), _, _ = env.reset()
             print(instruction)
 
