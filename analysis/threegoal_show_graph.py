@@ -107,7 +107,7 @@ def plot_graph_2(graphs, labels, level='easy', shown_type='acc'):
     if len(graphs) != len(labels):
         print("Wrong!!!")
         return
-    colors = ['darkred', 'green', 'blue', 'red', "orange"]
+    colors = ['red', 'green', 'blue', 'red', "orange"]
     
     times = []
     rewards = []

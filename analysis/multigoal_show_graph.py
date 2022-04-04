@@ -107,7 +107,7 @@ def plot_graph_2(graphs, labels, level='easy', shown_type='acc'):
     if len(graphs) != len(labels):
         print("Wrong!!!")
         return
-    colors = ['darkred', 'green', 'blue', 'red', "orange"]
+    colors = ['red', 'green', 'blue', 'red', "orange"]
     
     times = []
     rewards = []
@@ -197,14 +197,14 @@ def plot_graph_2(graphs, labels, level='easy', shown_type='acc'):
 
     text_style = dict(horizontalalignment='right', verticalalignment='center',
                   fontsize=7, fontdict={'family': 'monospace'})
-    # plt.plot((0, times[0][times_max_index[0]]), (weights_max[0], weights_max[0]), color = 'black', linestyle='dashed') # horizontal 1 (FGA)
-    # plt.text(2, weights_max[0] + 0.02, "0.801", **text_style)
-    # plt.plot((0, times[0][times_max_index[0]]), (weights_max[1], weights_max[1]), color = 'black', linestyle='dashed') # horizontal 2 (GA)
-    # plt.text(0.3, weights_max[1] - 0.005, "0.324", **text_style)
-    # plt.plot((0, times[0][times_max_index[0]]), (weights_max[2], weights_max[2]), color = 'black', linestyle='dashed') # horizontal 3 (CA)
-    # plt.text(0.3, weights_max[2] - 0.005, "0.299", **text_style)
-    # plt.plot((times[0][times_max_index[0]], times[0][times_max_index[0]]), (0.03, weights_max[0]), color = 'black', linestyle='dashed')# vertical
-    # plt.text(times[0][times_max_index[0]] + 0.5, 0.01, "35", **text_style)
+    plt.plot((0, times[0][times_max_index[0]]), (weights_max[0], weights_max[0]), color = 'black', linestyle='dashed') # horizontal 1 (FGA)
+    plt.text(2, weights_max[0] + 0.02, "0.801", **text_style)
+    plt.plot((0, times[0][times_max_index[0]]), (weights_max[1], weights_max[1]), color = 'black', linestyle='dashed') # horizontal 2 (GA)
+    plt.text(0.3, weights_max[1] - 0.005, "0.324", **text_style)
+    plt.plot((0, times[0][times_max_index[0]]), (weights_max[2], weights_max[2]), color = 'black', linestyle='dashed') # horizontal 3 (CA)
+    plt.text(0.3, weights_max[2] - 0.005, "0.299", **text_style)
+    plt.plot((times[0][times_max_index[0]], times[0][times_max_index[0]]), (0.03, weights_max[0]), color = 'black', linestyle='dashed')# vertical
+    plt.text(times[0][times_max_index[0]] + 0.5, 0.01, "35", **text_style)
 
     #plot shade
     times_clone = []
@@ -301,8 +301,10 @@ if __name__ == "__main__":
 
     if args.difficulty == 'easy':
         # easy
-        graph1 = read_file(text_file="./saved/fourier_models/two_goals/easy/train_easy_multigoal_fourier_d1.log")
-        graph2 = read_file(text_file="./saved/fourier_models/two_goals/easy/train_easy_multigoal_fourier_d1_gated.log")
+        # graph1 = read_file(text_file="./saved/fourier_models/two_goals/easy/train_easy_multigoal_fourier_d1.log")
+        graph1 = read_file(text_file="./train_easy_diff_fourier.log")
+        # graph2 = read_file(text_file="./saved/fourier_models/two_goals/easy/train_easy_multigoal_fourier_d1_gated.log")
+        graph2 = read_file(text_file='train_easy_multigoal_convolve_noorder.log')
         graph3 = read_file(text_file="./saved/train_easy_multigoal_convolve.log")
         # plot
         plot_graph_2(graphs=[graph1, graph2, graph3], labels=["FGA easy (2 Goals)", "GA easy (2 Goals)", 'CA easy (2 Goals)'], level='easy', shown_type=args.type)

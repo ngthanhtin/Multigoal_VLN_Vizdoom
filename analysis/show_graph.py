@@ -107,7 +107,7 @@ def plot_graph_2(graphs, labels, level='easy', shown_type='acc'):
     if len(graphs) != len(labels):
         print("Wrong!!!")
         return
-    colors = ['green', 'darkred', 'blue', 'red', "royalblue"]
+    colors = ['green', 'red', 'blue', 'red', "royalblue"]
     
     times = []
     rewards = []
@@ -136,7 +136,7 @@ def plot_graph_2(graphs, labels, level='easy', shown_type='acc'):
         weights_2.append(smooth(weights[i], weight_smooth_2))
 
     # smooth for mean lines
-    weight_smooth = 0.99
+    weight_smooth = 0.95
     for i in range(len(weights)):
         weights[i] = smooth(weights[i], weight_smooth)
     
