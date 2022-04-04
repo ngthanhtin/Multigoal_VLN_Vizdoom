@@ -154,6 +154,53 @@ def weights_init(m):
         #     m.bias.data.fill_(0)
 
 
+import matplotlib.pyplot as plt
+from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
+from matplotlib.figure import Figure
+#Show attention
+def plot_attention(imgs, original_img, text):
+
+    original_img = original_img[0].detach().cpu().numpy().transpose((1, 2, 0))
+    # plt.imshow(original_img, cmap='gray')
+    fig = Figure()
+    canvas = FigureCanvas(fig)
+    ax = fig.gca()
+    canvas.draw()
+
+    imgs = imgs.detach().cpu().numpy().transpose((0, 2, 3, 1))
+    # imgs = imgs.sum(0)
+    # imgs = imgs.detach().cpu().numpy().transpose((1, 2, 0))
+    # img = imgs/255.0
+    # img = cv2.resize(img, (300, 168))
+    
+    # plt.imshow(img, cmap='jet', alpha=0.5)
+    # plt.tight_layout()
+    # plt.show()
+
+    for i in range(5):
+        img = imgs[i]/255.0
+        
+        img = cv2.resize(img, (300, 168))
+        plt.imshow(original_img, cmap='gray')
+        plt.imshow(img, cmap='jet', alpha=0.5)
+        if i == 0:
+            no_text = '1st'
+        if i == 1:
+            no_text = '2nd'
+        if i == 2:
+            no_text = '3rd'
+        if i == 3:
+            no_text = '4th'
+        if i == 4:
+            no_text = '5th'
+        plt.text(120, 200, '{} attention map'.format(no_text), fontsize = 11)
+        
+        plt.tight_layout()
+        # plt.show()
+        saved_image = np.frombuffer(canvas.tostring_rgb(), dtype='uint8')
+        return saved_image
+
+
 class A3C_LSTM_GA(torch.nn.Module):
 
     def __init__(self, args, ae_model=None):
@@ -177,14 +224,14 @@ class A3C_LSTM_GA(torch.nn.Module):
         #-------------------ATTENTION------------------#
         if args.attention == 'fga':
         # fnet attention
-            self.v_att = FNet(12, 256, 64, 3, 64, 0) #v_att
+            self.attention = FNet(12, 256, 64, 3, 64, 0) #v_att
         if args.attention == 'convolve':
             self.v_att = ConvolvedAttention(5, 8*17, 256, 64) # 5 ,1,8,17
             self.conv_4 = nn.Conv2d(1, 64, kernel_size=3, stride=2)
             self.conv_5 = nn.Conv2d(64, 64, kernel_size=3, stride=2)
         else:
         # gated attention
-            self.v_att = GatedAttention(12, 256, 64)
+            self.attention = GatedAttention(12, 256, 64)
             
         #-----------------------------------------------#
 
@@ -238,7 +285,7 @@ class A3C_LSTM_GA(torch.nn.Module):
             ae_v_emb = encoder.clone()
         else:
             x, input_inst, (tx, hx, cx) = inputs
-
+            original_image = x
             # Get the image representation
             N, Cin, H, W = x.shape
             # x = F.interpolate(x, (224, 224))
@@ -258,12 +305,14 @@ class A3C_LSTM_GA(torch.nn.Module):
         
         w_emb = self.w_emb(input_inst.long())
         s_emb = self.s_emb(w_emb)
-
+        
+        att_img = None
         if self.args.attention == 'fga':
             #f-net attention
-            att = self.v_att(x_emb, s_emb)
+            att = self.attention(x_emb, s_emb)
         if self.args.attention == "convolve":
             att = self.v_att(x_emb, s_emb)
+            att_img = plot_attention(att, original_image, input_inst)
             att = self.conv_4(att)
             att = self.prelu(att)
             att = self.conv_5(att)
@@ -271,7 +320,7 @@ class A3C_LSTM_GA(torch.nn.Module):
             att = att.view(-1).unsqueeze(0)            
         else:
             # gated attention
-            att = self.v_att(x_emb, s_emb)
+            att = self.attention(x_emb, s_emb)
     
         x = att
         
@@ -286,6 +335,6 @@ class A3C_LSTM_GA(torch.nn.Module):
         
         if self.args.auto_encoder:
             return self.critic_linear(x), self.actor_linear(x), (hx, cx), decoder, ae_input
-        return self.critic_linear(x), self.actor_linear(x), (hx, cx)
+        return self.critic_linear(x), self.actor_linear(x), (hx, cx), att_img
 
     
