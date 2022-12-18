@@ -7,7 +7,7 @@ Sejong University, Seoul, Korea <br/>
 Deakin University, Australia
 
 ![example](./docs/two_goal.gif)
-![Video](https://youtu.be/uF2CtWHsPfk)
+https://youtu.be/uF2CtWHsPfk
 
 ### This repository contains:
 - Code for training an A3C-LSTM agent using Fourier Transform Attention in Single Goal or Multi Goals Env.
