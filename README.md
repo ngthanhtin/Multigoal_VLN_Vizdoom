@@ -62,17 +62,8 @@ To test the trained model, use `--load saved/model_best` in the above commands.
 ```
 
 ## Cite as
->Nguyen T.Tin, Ngoc Duy Nguyen, Che Peng Lim, Asim Bhatti, Kim Yong Guk, 2022. zzzzzzzzzzz arXiv preprint arXiv:1706.07230. ([PDF](None))
+>Nguyen T.Tin, Ngoc Duy Nguyen, Che Peng Lim, Asim Bhatti, Kim Yong Guk.
 
-### Bibtex:
-```
-@article{zzzzz,
-  title={zzzzzzzzzz},
-  author={Nguyen T.Tin, Ngoc Duy Nguyen, Che Peng Lim, Asim Bhatti, Kim Yong Guk},
-  journal={arXiv preprint arXiv:1706.07230},
-  year={2022}
-}
-```
 
 ## Acknowledgements
 This repository uses ViZDoom API (https://github.com/mwydmuch/ViZDoom) and parts of the code from the API. This is a PyTorch implementation based on [this repo](https://github.com/devendrachaplot/DeepRL-Grounding).
