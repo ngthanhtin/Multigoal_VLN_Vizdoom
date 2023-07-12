@@ -15,7 +15,6 @@ https://youtu.be/uF2CtWHsPfk
 ## Dependencies
 - [ViZDoom](https://github.com/mwydmuch/ViZDoom)
 - [PyTorch](http://pytorch.org)
-- Opencva
 
 ## Usage
 
